@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Storage } from '@ionic/storage';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,7 +16,9 @@ export class LoginPage implements OnInit {
   username: string = "";
   password: string = "";
 
-  constructor(private route: ActivatedRoute, private router: Router,public alertController: AlertController) { }
+  constructor(private route: ActivatedRoute, private router: Router,
+    public alertController: AlertController,
+    private storage: Storage) { }
 
   ngOnInit() {
   }
@@ -44,6 +47,7 @@ export class LoginPage implements OnInit {
 
     if(existe) {
       this.router.navigate(['home']);
+      this.storage.set('userLogged', this.username);
     }
     else {
       this.presentAlert();
