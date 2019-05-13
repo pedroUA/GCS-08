@@ -1,0 +1,18 @@
+<ion-content padding center text-center>
+  <div>
+      <ion-img width="10" height="10" src="../../assets/images/Logotipo.png"></ion-img>
+      <form>
+          <div class="form-group">
+            <label for="usernamelabel">Nombre de usuario</label>
+            <input type="text" class="form-control" [(ngModel)]="username" placeholder="Introduce tu usuario" name="nombreusuario">
+            </div>
+          <div class="form-group">
+            <label for="passwordlabel">Contraseña</label>
+            <input type="password" class="form-control" [(ngModel)]="password" name= "passwordusuario" placeholder="Introduce tu contraseña">
+          </div>
+          <button type="button" class="btn btn-primary btn-lg btn-block" (click)= "login()">Login</button>
+          <button type="button" class="btn btn-secondary btn-lg btn-block" (click)= "login()">Registrarse</button>
+        </form>
+  </div>
+  
+</ion-content>
