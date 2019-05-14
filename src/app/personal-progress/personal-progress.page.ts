@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,17 +9,16 @@ import { NavController } from 'ionic-angular';
 })
 export class PersonalProgressPage implements OnInit {
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   public dataInsert() {
-    this.navCtrl.push('data-insert');
+    this.router.navigate(['data-insert']);
   }
 
   public graphics() {
-    this.navCtrl.push('graphics');
+    this.router.navigate(['graphics']);
   }
-
 }
