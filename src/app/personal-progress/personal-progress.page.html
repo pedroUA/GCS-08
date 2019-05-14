@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>personal-progress</ion-title>
+    <ion-title>Progreso Personal</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <button ion-button icon-only (click)="dataInsert()">
-    <ion-icon name="create"></ion-icon>
-  </button>
-  <button ion-button icon-only (click)="graphics()">
-    <ion-icon name="analytics"></ion-icon>
-  </button>
+  <ion-button shape="round" (click)="dataInsert()">
+    Añadir datos caloricos o peso diario<ion-icon slot="start" name="create"></ion-icon>
+  </ion-button>
+  <ion-button shape="round" (click)="graphics()">
+    Gráficos<ion-icon slot="start" name="analytics"></ion-icon>
+  </ion-button>
 </ion-content>
