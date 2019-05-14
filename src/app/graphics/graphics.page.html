@@ -1,14 +1,30 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
-      Graphics
-    </ion-title>
+    <ion-title>Gráficos de progreso personal</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-card class="bg-white">
+    <ion-card-header>
+      Calórico Semanal
+    </ion-card-header>
+    <ion-card-content>
+      <!-- <ion-button (click)="updateData()">Actualizar Calorico</ion-button> -->
+      <canvas #pieCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 
+  <ion-card class="bg-white">
+    <ion-card-header>
+      Peso mensual
+    </ion-card-header>
+    <ion-card-content>
+      <canvas #lineCanvas></canvas>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+
