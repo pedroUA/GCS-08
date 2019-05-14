@@ -9,7 +9,6 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage implements OnInit {
 
-
   usuarios = ["pepe14", "manolete15","pedroUA"];
   passwords = ["123123", "123123","123123"];
 

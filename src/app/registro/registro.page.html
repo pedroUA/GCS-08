@@ -1,9 +1,40 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>registro</ion-title>
+      <ion-buttons slot="start">
+      <ion-back-button defaultHref="login"></ion-back-button>
+      </ion-buttons>
+    <ion-title>Registro</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <div>
+    <form padding center text-center>
+        <div class="form-group">
+          <label for="usernamelabel">Nombre de usuario</label>
+          <input type="text" class="form-control" [(ngModel)]="username" placeholder="Introduce tu usuario" name="nombreusuario">
+          </div>
+        <div class="form-group">
+          <label for="passwordlabel">Contraseña</label>
+          <input type="password" class="form-control" [(ngModel)]="password" name= "passwordusuario" placeholder="Introduce tu contraseña">
+        </div>
+        <div class="form-group">
+          <label for="passwordlabel">Confirmar Contraseña</label>
+          <input type="password" class="form-control" [(ngModel)]="password_repeat" name= "passwordusuario_repeat" placeholder="Introduce tu contraseña">
+        </div>
+        <div class="form-group">
+          <label for="passwordlabel">Nombre</label>
+          <input type="text" class="form-control" [(ngModel)]="name" name= "nombreusuario" placeholder="Introduce tu nombre">
+        </div>
+        <div class="form-group">
+          <label for="passwordlabel">Apellidos</label>
+          <input type="text" class="form-control" [(ngModel)]="apellidos" name= "apellidosusuario" placeholder="Introduce tus apellidos">
+        </div>
+        <div class="form-group">
+          <label for="passwordlabel">Email</label>
+          <input type="email" class="form-control" [(ngModel)]="email" name= "emailusuario" placeholder="Introduce tu cemail">
+        </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block" (click)= "registro()">Registrarse</button>
+      </form>
+</div>
 </ion-content>
