@@ -52,8 +52,10 @@ export class LoginPage implements OnInit {
     else {
       this.presentAlert();
     }
+  }
 
-
+  registro() {
+    this.router.navigate(['registro']);
   }
 
 }
