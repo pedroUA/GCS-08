@@ -52,6 +52,11 @@ describe('AppComponent', () => {
     expect(menuItems.length).toEqual(2);
     expect(menuItems[0].textContent).toContain('Home');
     expect(menuItems[1].textContent).toContain('List');
+    expect(menuItems[2].textContent).toContain('Personal progress');
+    expect(menuItems[3].textContent).toContain('Graphics');
+    expect(menuItems[4].textContent).toContain('Insert data');
+    expect(menuItems[5].textContent).toContain('Profile');
+    expect(menuItems[6].textContent).toContain('Search');
   });
 
   it('should have urls', async () => {
@@ -62,6 +67,11 @@ describe('AppComponent', () => {
     expect(menuItems.length).toEqual(2);
     expect(menuItems[0].getAttribute('ng-reflect-router-link')).toEqual('/home');
     expect(menuItems[1].getAttribute('ng-reflect-router-link')).toEqual('/list');
+    expect(menuItems[2].getAttribute('ng-reflect-router-link')).toEqual('/personal-progress');
+    expect(menuItems[3].getAttribute('ng-reflect-router-link')).toEqual('/graphics');
+    expect(menuItems[4].getAttribute('ng-reflect-router-link')).toEqual('/data-insert');
+    expect(menuItems[5].getAttribute('ng-reflect-router-link')).toEqual('/profile');
+    expect(menuItems[6].getAttribute('ng-reflect-router-link')).toEqual('/search');
   });
 
 });
