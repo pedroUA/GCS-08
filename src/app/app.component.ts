@@ -24,6 +24,31 @@ export class AppComponent {
       title: 'List',
       url: '/list',
       icon: 'list'
+    },
+    {
+      title: 'Personal progress',
+      url: '/personal-progress',
+      //icon: 'list'
+    },
+    {
+      title: 'Graphics',
+      url: '/graphics',
+      //icon: 'list'
+    },
+    {
+      title: 'Data insert',
+      url: '/data-insert',
+      //icon: 'list'
+    },
+    {
+      title: 'Profile',
+      url: '/profile',
+      //icon: 'list'
+    },
+    {
+      title: 'Search',
+      url: '/search',
+      //icon: 'list'
     }
   ];
 
