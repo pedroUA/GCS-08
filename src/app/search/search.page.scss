@@ -1,0 +1,21 @@
+div.button {
+    color:black;
+    width: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+div.button.active {
+    background-color:rgb(68, 255, 146); 
+ }
+ div.button.active:hover {
+    background-color:rgb(12, 219, 98); 
+}
+
+
+div.button.disable {
+    background-color:lightgray;
+}
+div.button:hover {
+    background-color:rgb(241, 241, 241); 
+}

@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar style="text-align: center;">
+    <ion-title>¿Qué quieres buscar?</ion-title>
+    <div style="display: flex; width: 100%;">
+      <div id="recetas-button" class="button active" (click)="changeClassActive('recetas-button')">Recetas</div>
+      <div id="usuarios-button" class="button" (click)="changeClassActive('usuarios-button')">Usuarios</div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar>
+    <ion-searchbar id="search-bar" [placeholder]="phSearchBar"></ion-searchbar>
+  </ion-toolbar>
+</ion-content>
