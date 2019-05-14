@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from 'ionic-angular';
+
 
 @Component({
   selector: 'app-personal-progress',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonalProgressPage implements OnInit {
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  public dataInsert() {
+    this.navCtrl.push('data-insert');
+  }
+
+  public graphics() {
+    this.navCtrl.push('graphics');
   }
 
 }
