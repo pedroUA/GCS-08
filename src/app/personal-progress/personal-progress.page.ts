@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-personal-progress',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PersonalProgressPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  public dataInsert() {
+    this.router.navigate(['data-insert']);
+  }
+
+  public graphics() {
+    this.router.navigate(['graphics']);
+  }
 }
