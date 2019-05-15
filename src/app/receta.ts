@@ -2,7 +2,7 @@ export interface Receta {
     _id:Number,
     _name:String,
     _description:String,
-    _ingredientes:String[],
+    _ingredientes:string[],
     _author:Number,
     _protein:Number,
     _carbohydrates:Number,
