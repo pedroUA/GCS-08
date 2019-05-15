@@ -26,6 +26,11 @@ export class AppComponent {
       icon: 'list'
     },
     {
+      title: 'Crear Receta',
+      url: '/creareceta',
+      //icon: 'list'
+    },
+    {
       title: 'Personal progress',
       url: '/personal-progress',
       //icon: 'list'
