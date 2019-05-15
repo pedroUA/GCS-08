@@ -17,9 +17,9 @@ export class CrearecetaPage implements OnInit {
   
  
  datos: FormGroup;
- ausuarios:Usuario[] = [];
- arecetas:Receta[] = [];
+ ausuarios:Array<Usuario> = [];
 
+ arecetas:Array<Receta>  = [];
 
  
  constructor(private storage: Storage,private router: Router, public formBuilder: FormBuilder) {
@@ -59,10 +59,9 @@ export class CrearecetaPage implements OnInit {
 
   public guardarReceta(){
     
-    this.storage.get('usuarios').then( (arrayUsers:Usuario[]) => { this.ausuarios = arrayUsers; } );
-    this.storage.get('recetas').then( (arrayRecetas:Receta[]) => { this.arecetas = arrayRecetas; } );
-    
-    
+    this.storage.get('usuarios').then( (arrayUsers) => { this.ausuarios = arrayUsers; } );
+    this.storage.get('recetas').then( (arrayRecetas) => { this.arecetas = arrayRecetas; } );
+
     var receta:Receta={
     _id : this.arecetas.length,
     _name : this.datos.get('nombre').value,
@@ -79,11 +78,13 @@ export class CrearecetaPage implements OnInit {
     
   };
 
-  this.storage.set('recetas',receta);
+  this.arecetas.push(receta);
+
+  this.storage.set('recetas',this.arecetas);
     
 
-  this.storage.get('recetas').then( (resultado) => { console.log(resultado) } );
-  }
+  
+}
     
   
 

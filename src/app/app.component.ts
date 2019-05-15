@@ -31,6 +31,11 @@ export class AppComponent {
       //icon: 'list'
     },
     {
+      title: 'Mi Receta',
+      url: '/mireceta',
+      //icon: 'list'
+    },
+    {
       title: 'Personal progress',
       url: '/personal-progress',
       //icon: 'list'

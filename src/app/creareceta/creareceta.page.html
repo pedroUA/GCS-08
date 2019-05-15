@@ -1,6 +1,9 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>creareceta</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Crea Receta</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -68,13 +71,9 @@
     
     <ion-button expands="full" type="submit"
     (click)="guardarReceta()">
-      Guardar  
+      Crear  
     </ion-button>
 
-    <ion-button expands="full" type="submit"
-    (click)="loadData()">
-      Probar  
-    </ion-button>
 
   </form>
 
