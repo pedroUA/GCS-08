@@ -2,7 +2,7 @@
   <ion-split-pane>
     <ion-menu>
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar color="secondary">
             <div class="item item-avatar">
               <div>
                  
@@ -21,10 +21,10 @@
             </div>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
+      <ion-content color="secondary">
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" color="secondary">
               <ion-label>
                   <font [color]="[p.color]">{{p.title}}</font>
               </ion-label>
