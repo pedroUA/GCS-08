@@ -5,8 +5,18 @@
         <ion-toolbar>
             <div class="item item-avatar">
               <div>
-                <img width="100" height="100" src="../assets/images/users/{{usuario_logueado}}.jpg">
-                <p>Usuario: {{usuario_logueado}}</p>
+                 
+                  <ion-thumbnail  slot="start">
+                      <ion-chip>
+                          <ion-avatar>
+                              <img width="150" height="150" src="../assets/images/users/{{usuario_logueado}}.jpg">
+                          </ion-avatar>
+                          <ion-label>{{usuario_logueado}}</ion-label>
+                        </ion-chip>
+                    </ion-thumbnail>
+                
+
+                
               </div>
             </div>
         </ion-toolbar>
