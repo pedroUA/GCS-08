@@ -202,6 +202,7 @@ export class SearchPage implements OnInit {
         _id : this.recetas.length,
         _name : this.wordGenerator(),
         _description:this.wordGenerator(),
+        _ingredientes: ["uno","dos","tres"],
         _author: Math.abs(Math.floor(Math.random() * this.usuarios.length))-1,
         _protein:protein,
         _carbohydrates:carbohydrates,
