@@ -17,7 +17,9 @@ export class LoginPage implements OnInit {
 
   constructor(private route: ActivatedRoute, private router: Router,
     public alertController: AlertController,
-    private storage: Storage) { }
+    private storage: Storage) { 
+      
+    }
 
   ngOnInit() {
   }
@@ -45,8 +47,9 @@ export class LoginPage implements OnInit {
     }
 
     if(existe) {
-      this.router.navigate(['home']);
       this.storage.set('userLogged', this.username);
+      this.router.navigate(['home']);
+      
     }
     else {
       this.presentAlert();
