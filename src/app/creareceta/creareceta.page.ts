@@ -68,7 +68,7 @@ export class CrearecetaPage implements OnInit {
     _name : this.datos.get('nombre').value,
     _description:this.datos.get('descripcion').value,
     _ingredientes: this.datos.get('ingredientes').value,
-    _author: Math.abs(Math.floor(Math.random() * this.ausuarios.length))-1,
+    _author: Math.abs(Math.floor(Math.random()))-1,
     _protein: this.datos.get('proteinas').value,
     _carbohydrates:  this.datos.get('carbos').value,
     _fat: this.datos.get('grasa').value,
