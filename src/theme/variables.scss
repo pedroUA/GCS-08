@@ -72,3 +72,8 @@
       --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
   }
 }
+
+
+ion-header ion-toolbar{
+  --background :var(--ion-color-primary);
+}

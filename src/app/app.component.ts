@@ -152,7 +152,7 @@ export class AppComponent {
         _followers:[],
         _following:[],
         //Guardar las imagenes en /images/usuarios/[USERNAME].ext (/images/usuarios/francisco.png)
-        _imageURL:'http://lorempixel.com/300/150/people',
+        _imageURL:'http://lorempixel.com/50/50/people',
       }
       this.usuarios.push(user)
     }
@@ -179,13 +179,13 @@ export class AppComponent {
         _name : this.wordRecetaGenerator(),
         _description:"Descripción  detallada del alimento...",
         _ingredientes: ["Por","Ejemplo","Los","Del","Titulo"],
-        _author: Math.abs(Math.floor(Math.random() * this.usuarios.length))-1,
+        _author: Math.abs(Math.floor(Math.random() * this.usuarios.length-1)),
         _protein:protein,
         _carbohydrates:carbohydrates,
         _fat:fat,
         _kcals:protein*4 + carbohydrates*4 + fat*9,
         _likes:[],
-        _imageURL:'http://lorempixel.com/300/150/food'
+        _imageURL:'http://lorempixel.com/50/50/food'
       }
       this.recetas.push(receta)
     }
