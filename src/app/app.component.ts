@@ -1,3 +1,5 @@
+import { Usuario } from './usuario';
+import { Receta } from './receta';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -13,9 +15,9 @@ import { Usuario } from './usuario';
 })
 export class AppComponent {
 
-  usuario_logueado : string
-  recetas : Receta[] = [];
   usuarios : Usuario[] = [];
+  recetas : Receta[] = [];
+  usuario_logueado : string;
 
   public appPages = [
     {
@@ -80,6 +82,8 @@ export class AppComponent {
     this.initializeApp();
   }
 
+
+
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
@@ -97,12 +101,10 @@ export class AppComponent {
     }
     //alert("Datos en Storage!")
 
-
     this.storage.get('userLogged').then((userLogged) => {
       this.usuario_logueado = userLogged;
     });
   }
-  
   wordRecetaGenerator(){
     var a = ["tornillos","macarrones","sandwich","ensalada","pizza","lasaña"]
     var b = [" de "," con "]
