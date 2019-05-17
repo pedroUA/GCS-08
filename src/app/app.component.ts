@@ -26,6 +26,16 @@ export class AppComponent {
       icon: 'list'
     },
     {
+      title: 'Crear Receta',
+      url: '/creareceta',
+      //icon: 'list'
+    },
+    {
+      title: 'Mi Receta',
+      url: '/mireceta',
+      //icon: 'list'
+    },
+    {
       title: 'Personal progress',
       url: '/personal-progress',
       //icon: 'list'
@@ -48,6 +58,12 @@ export class AppComponent {
     {
       title: 'Search',
       url: '/search',
+      //icon: 'list'
+    },
+    {
+      title: 'Cerrar sesion',
+      url: '/login',
+      color: "red"
       //icon: 'list'
     }
   ];

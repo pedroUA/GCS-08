@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Mi Receta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding center text-center>
+    <div *ngFor="let unareceta of unareceta;">
+    <ion-card class="sc-ion-card-ios-h sc-ion-card-ios-s ios hydrated">
+        <img src="{{unareceta._imageURL}}">
+        <ion-card-header class="ios hydrated">
+            <ion-card-title class="ios hydrated" role="heading" aria-level="3">{{unareceta._name}}</ion-card-title>
+          <hr>
+          <ion-card-subtitle class="ios hydrated" role="heading" aria-level="3">{{unareceta._ingredientes}}</ion-card-subtitle>
+        </ion-card-header>
+        <hr>
+        <ion-card-content class="ios card-content-ios hydrated">
+          {{unareceta._description}}
+        </ion-card-content>
+        <hr>
+        <ion-card-content class="ios card-content-ios hydrated">
+           Proteinas(gr): {{unareceta._protein}}
+           <hr>
+           Carbohidratos(gr): {{unareceta._carbos}}
+           <hr>
+           Grasas(gr): {{unareceta.grasa}}
+          </ion-card-content>
+          
+      </ion-card>  
+  
+    </div>
+  
+
+            
+
+</ion-content>
+        

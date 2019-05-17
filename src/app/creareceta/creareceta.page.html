@@ -1,0 +1,80 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Crea Receta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+
+    
+    
+  </ion-list>
+   
+  <form [formGroup] ="datos">
+    <ion-list>
+      
+      <ion-item>
+        <ion-label position = "floating">Nombre</ion-label>  
+        <ion-input type="text"
+                  formControlName="nombre"
+                 required>
+        </ion-input>  
+      </ion-item>
+
+      <ion-item>
+        <ion-label position = "floating">Descripcion</ion-label>  
+        <ion-input type="text"
+                   formControlName="descripcion"
+                 required>
+        </ion-input>  
+      </ion-item>
+
+
+      <ion-item>
+        <ion-label position = "floating">Ingredientes</ion-label>  
+        <ion-input type="text"
+                   formControlName="ingredientes"
+                 required>
+        </ion-input>  
+      </ion-item>
+
+      <ion-item>
+        <ion-label position = "floating">Proteinas</ion-label>  
+        <ion-input type="number"
+                   formControlName="proteinas"
+                 required>
+        </ion-input>  
+      </ion-item>
+
+      <ion-item>
+        <ion-label position = "floating">Carbohidratos</ion-label>  
+        <ion-input type="number"
+                   formControlName="carbos"
+                 required>
+        </ion-input>  
+      </ion-item>
+
+      <ion-item>
+        <ion-label position = "floating">Grasas</ion-label>  
+        <ion-input type="number"
+                   formControlName="grasa"
+                 required>
+        </ion-input>  
+      </ion-item>
+
+
+    </ion-list>
+    
+    <ion-button expands="full" type="submit"
+    (click)="guardarReceta()">
+      Crear  
+    </ion-button>
+
+
+  </form>
+
+</ion-content>

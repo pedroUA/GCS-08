@@ -22,6 +22,8 @@ const routes: Routes = [
   { path: 'registro', loadChildren: './registro/registro.module#RegistroPageModule' },
   { path: 'profile', loadChildren: './profile/profile.module#ProfilePageModule' },
   { path: 'search', loadChildren: './search/search.module#SearchPageModule' },
+  { path: 'creareceta', loadChildren: './creareceta/creareceta.module#CrearecetaPageModule' },
+  { path: 'mireceta', loadChildren: './mireceta/mireceta.module#MirecetaPageModule' },
   { path: 'personal-progress', loadChildren: './personal-progress/personal-progress.module#PersonalProgressPageModule' },
   { path: 'graphics', loadChildren: './graphics/graphics.module#GraphicsPageModule' },
   { path: 'data-insert', loadChildren: './data-insert/data-insert.module#DataInsertPageModule' }

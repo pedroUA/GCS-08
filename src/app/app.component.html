@@ -2,22 +2,31 @@
   <ion-split-pane>
     <ion-menu>
       <ion-header>
-        <ion-toolbar>
+        <ion-toolbar color="secondary">
             <div class="item item-avatar">
               <div>
-                <img width="100" height="100" src="../assets/images/users/{{usuario_logueado}}.jpg">
-                <p>Usuario: {{usuario_logueado}}</p>
+                 
+                  <ion-thumbnail  slot="start">
+                      <ion-chip>
+                          <ion-avatar>
+                              <img width="150" height="150" src="../assets/images/users/{{usuario_logueado}}.jpg">
+                          </ion-avatar>
+                          <ion-label>{{usuario_logueado}}</ion-label>
+                        </ion-chip>
+                    </ion-thumbnail>
+                
+
+                
               </div>
             </div>
         </ion-toolbar>
       </ion-header>
-      <ion-content>
+      <ion-content color="secondary">
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" color="secondary">
               <ion-label>
-                {{p.title}}
+                  <font [color]="[p.color]">{{p.title}}</font>
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
