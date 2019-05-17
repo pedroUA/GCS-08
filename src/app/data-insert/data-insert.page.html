@@ -9,44 +9,59 @@
 
 <ion-content style="text-align: center">  
   <div style="display: flex; width: 100%;">
-    <div id="peso-button" class="button active" (click)="changeClassActive('recetas-button')">Recetas</div>
-    <div id="calorico-button" class="button" (click)="changeClassActive('usuarios-button')">Usuarios</div>
+    <div id="peso-button" class="button active" (click)="cambiarForm('peso')"></div>
+    <div id="calorico-button" class="button" (click)="cambiarForm('calorico')"></div>
   </div>
-
-  <form [formGroup] ="formpeso">
-      <ion-list>
-        <ion-item>
-          <ion-label position = "floating">Peso</ion-label>  
-          <ion-input type="number" formControlName="peso" required></ion-input>  
-        </ion-item>
-        <ion-item>
-          <ion-label position = "floating">Altura</ion-label>  
-          <ion-input type="number" formControlName="altura" required></ion-input>  
-        </ion-item>
-      </ion-list>
-      <ion-button expands="full" type="submit" (click)="guardarPesoDiario()">
-        Peso
-      </ion-button>
-    </form>
-  
-  <form [formGroup] ="formcalorico">
+  <!--
+  <form [formGroup] ="formpeso" class="list-form" *ngIf="typeForm == 'peso'">
     <ion-list>
-      <ion-item>
-        <ion-label position = "floating">Grasas (Kcal)</ion-label>  
-        <ion-input type="number" formControlName="grasas" required></ion-input>  
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position = "floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Peso
+        </ion-label>  
+        <ion-input type="number" formControlName="peso" required></ion-input>  
       </ion-item>
-      <ion-item>
-        <ion-label position = "floating">Hidratos (Kcal)</ion-label>  
-        <ion-input type="number" formControlName="hidratos" required></ion-input>  
-      </ion-item>
-      <ion-item>
-        <ion-label position = "floating">Proteinas (Kcal)</ion-label>  
-          <ion-input type="number" formControlName="altura" required></ion-input>  
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position = "floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Altura
+        </ion-label>  
+        <ion-input type="number" formControlName="altura" required></ion-input>  
       </ion-item>
     </ion-list>
-    <ion-button expands="full" type="submit" (click)="guardarCaloricoDiario()">
-      Calorias
+    <ion-button color="primary" shape="round" expands="block" type="submit" (click)="guardarPesoDiario()">
+      Peso
     </ion-button>
   </form>
 
+  <form [formGroup] ="formcalorico" class="list-form" *ngIf="typeForm == 'calorico'">
+    <ion-list>
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position ="floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Grasas (Kcal)
+        </ion-label>  
+        <ion-input type="number" formControlName="grasas" required></ion-input>  
+      </ion-item>
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position = "floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Hidratos (Kcal)
+        </ion-label>  
+        <ion-input type="number" formControlName="hidratos" required></ion-input>  
+      </ion-item>
+      <ion-item no-padding class="animated fadeInUp">
+        <ion-label position = "floating">
+          <ion-icon name="lock" item-start></ion-icon>
+          Proteinas (Kcal)
+        </ion-label>  
+        <ion-input type="number" formControlName="altura" required></ion-input>  
+      </ion-item>
+    </ion-list>
+    <ion-button color="primary" shape="round" expands="block" type="submit" (click)="guardarCaloricoDiario()">
+      Calorias
+    </ion-button>
+  </form>
+-->
 </ion-content>

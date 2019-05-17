@@ -1,56 +1,48 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import {FormGroup, FormBuilder, FormControl, Validators} from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Usuario } from '../usuario';
 
 @Component({
   selector: 'app-data-insert',
   templateUrl: './data-insert.page.html',
   styleUrls: ['./data-insert.page.scss'],
 })
-export class DataInsertPage implements OnInit {
 
-  typeForm = 'peso';
-  formpeso: FormGroup;
-  formcalorico: FormGroup;
+export class DataInsertPage {
 
-  constructor(private storage: Storage, private router: Router, public formBuilder: FormBuilder) {
-      this.formpeso = new FormGroup({
-        peso: new FormControl,
-        altura: new FormControl
-      });
+    typeForm = 'peso';
+    formpeso = this.fb.group({
+      peso: ['', [Validators.required, Validators.min(0), Validators.max(400)]],
+      altura: ['', [Validators.required, Validators.min(0), Validators.max(2.5)]]
+    });
 
-      this.formcalorico = new FormGroup({
-        grasas: new FormControl,
-        hidratos: new FormControl,
-        proteinas: new FormControl
-      });
-  }
+    formcalorico = this.fb.group({
+      grasas: ['', [Validators.required, Validators.min(0), Validators.max(10000)]],
+      hidratos: ['', [Validators.required, Validators.min(0), Validators.max(10000)]],
+      proteinas: ['', [Validators.required, Validators.min(0), Validators.max(10000)]]
+    });
 
-  ngOnInit() {
-      //al iniciar
-  }
+    constructor(private storage: Storage, private router: Router, public fb: FormBuilder) { }
 
-  changeForm() {
-      const pesoButtonActive = document.getElementById('peso-button').classList.contains('active');
-      const caloricoButtonActive = document.getElementById('calorico-button').classList.contains('active');
-      if (pesoButtonActive) {
-          //desactivar boton peso
-          //desactivar form peso
-          //activar boton calorico
-          //activar form calorico
-      } else {
-          //al contrario
-      }
-  }
+    cambiarForm() {
+        const pesoButton = document.getElementById('peso-button').classList.contains('active');
+        const caloricoButton = document.getElementById('calorico-button').classList.contains('active');
+        if (pesoButton && !caloricoButton) {
+          this.typeForm = 'calorico';
+        } else {
+          this.typeForm = 'peso';
+        }
+        document.getElementById('peso-button').classList.toggle('active');
+        document.getElementById('calorico-button').classList.toggle('active');
+    }
 
-  changeClassActive(item) {
-      if (!document.getElementById(item).classList.contains('active')) {
-          document.getElementById('recetas-button').classList.toggle('active');
-          document.getElementById('usuarios-button').classList.toggle('active');
+    guardarPesoDiario() {
+        this.router.navigate(['graphics']);
+    }
 
-          this.changeForm();
-      }
- }
-
+    guardarCaloricoDiario() {
+        this.router.navigate(['graphics']);
+    }
 }
