@@ -5,13 +5,6 @@ import { parseHostBindings } from '@angular/compiler';
 import { Storage } from '@ionic/storage';
 import { FormControl } from '@angular/forms';
 import { NavController, IonVirtualScroll } from '@ionic/angular';
-import { async } from '@angular/core/testing';
-
-import { debounceTime, debounce } from 'rxjs/operators';
-import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
-//import { Observable } from 'rxjs';
-
-//import 'rxjs/add/operator/debounceTime';
 
 @Component({
   selector: 'app-search',
@@ -23,44 +16,6 @@ export class SearchPage implements OnInit {
   searchControl: FormControl;
   items: any[];
   searching: boolean = false;
-  lastSearchTerm: String = '';
-
-  myDebounceTime = Date.now();
-
-  debouncer(timer):Boolean{
-    let time = Date.now() - this.myDebounceTime;
-
-    //LA BUSQUEDA HA CAMBIADO
-    if(this.searchTerm != this.lastSearchTerm)
-    {
-      //Tiempo desde el ultimo cambio del dato a buscar
-      this.myDebounceTime = Date.now();
-    
-      //Actualizamos el dato que habia anteriormente
-      this.lastSearchTerm = this.searchTerm;
-
-      //Activamos modo busqueda si el usuario esta escribiendo
-      this.searching = true;
-
-      return false;
-
-    }else{ //LA BUSQUEDA NO HA CAMBIADO
-
-      //ESTAMOS BUSCANDO
-      if(this.searching){
-        //SEGUIMOS BUSCANDO SI PASÓ POCO TIEMPO
-        this.searching = time < timer;
-        //SI PASO EL TIEMPO 'TIMER' ACTUALIZAMOS DATOS
-        return time > timer;
-      }else{
-        //Tiempo desde el ultimo cambio del dato a buscar
-        this.myDebounceTime = Date.now();
-        //NO ESTAMOS BUSCANDO
-        return false;
-      }
-    }
-  }
-
 
   className: string = 'active';
   phSearchBar: string = 'Buscar ';
@@ -101,7 +56,6 @@ export class SearchPage implements OnInit {
     
     this.inicializarRecetasAleatorios();
     this.inicializarUsuariosAleatorios();
-  
     
     this.searchControl = new FormControl();
     this.ionViewDidLoad();
@@ -111,23 +65,6 @@ export class SearchPage implements OnInit {
 
   ionViewDidLoad() {
     this.setFilteredItems();
-
-//    alert("OH 1")
-
-    var timeout = setInterval(()=>{
-      if(this.debouncer(700))
-      {
-        this.setFilteredItems();
-      }
-    },50)
-//    this.searchControl.valueChanges().switchMap(value => alert(value))
-    /*
-    subscribe( search => {
-      alert("OH 2")
-      this.setFilteredItems(search);
-      this.searching = false;
-    });*/
-    
   }
    
   alerta = (elem) => alert(JSON.stringify(elem));
@@ -149,6 +86,7 @@ export class SearchPage implements OnInit {
       }
       //alert("ITEMS = " + JSON.stringify(this.items))
     }
+    this.searching = false;
   }
 
   wordGenerator(){
@@ -164,57 +102,14 @@ export class SearchPage implements OnInit {
   }
   
   inicializarUsuariosAleatorios(){
-    this.usuarios = [];
-    var size = 50 + Math.abs(Math.floor(Math.random() * 150))
-        for(var i=0; i<size ;i++){
-          
-          var name = this.wordGenerator();
-          var sex = i % 2 == 0 ? 'male' : 'female';
-          var years = 12 + Math.abs(Math.floor(Math.random() * 77))
-          
-          var user : Usuario = {
-            _id : this.usuarios.length,
-            _name : name,
-            _username:this.wordGenerator(),
-            _password:this.wordGenerator(),
-            _sex: sex,
-            _years:years,
-            _address:this.wordGenerator(),
-            _email:this.wordGenerator(),
-            _followers:[],
-            _following:[],
-            //Guardar las imagenes en /images/usuarios/[USERNAME].ext (/images/usuarios/francisco.png)
-            _imageURL:'http://lorempixel.com/500/500/people',
-          }
-          this.usuarios.push(user)
-        }
-        this.storage.set('usuarios',this.usuarios)
+    this.storage.get('usuarios').then((users:Usuario[])=>{
+      this.usuarios = users;
+    })
   }
   inicializarRecetasAleatorios(){
-    this.recetas = [];
-    var size = 50 + Math.abs(Math.floor(Math.random() * 150))
-    for(var i=0; i<size ;i++){
-      var protein = Math.abs(Math.floor(Math.random() * 10000)/1000);
-      var carbohydrates = Math.abs(Math.floor(Math.random() * 10000)/1000);
-      var fat = Math.abs(Math.floor(Math.random() * 10000)/1000);
-
-      var receta : Receta = {
-        _id : this.recetas.length,
-        _name : this.wordGenerator(),
-        _description:this.wordGenerator(),
-        _ingredientes: ["uno","dos","tres"],
-        _author: Math.abs(Math.floor(Math.random() * this.usuarios.length))-1,
-        _protein:protein,
-        _carbohydrates:carbohydrates,
-        _fat:fat,
-        _kcals:protein*4 + carbohydrates*4 + fat*9,
-        _likes:[],
-        _imageURL:'http://lorempixel.com/500/500/food'
-      }
-      this.recetas.push(receta)
-    }
-    this.recetas.push()
-    this.storage.set('recetas',[])
+    this.storage.get('recetas').then((reces:Receta[])=>{
+      this.recetas = reces;
+    })
   }
 
 
