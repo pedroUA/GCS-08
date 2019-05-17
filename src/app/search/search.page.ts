@@ -1,10 +1,9 @@
 import { Receta } from '../receta';
 import { Usuario } from '../usuario';
-import { Component, OnInit, NgModule } from '@angular/core';
-import { parseHostBindings } from '@angular/compiler';
+import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FormControl } from '@angular/forms';
-import { NavController, IonVirtualScroll } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-search',
@@ -15,6 +14,7 @@ export class SearchPage implements OnInit {
   searchTerm: string = '';
   searchControl: FormControl;
   items: any[];
+  allItems: any[];
   searching: boolean = false;
 
   className: string = 'active';
@@ -39,6 +39,7 @@ export class SearchPage implements OnInit {
       }
     }
     this.items = [];
+    this.allItems = [];
   }
 
   changeClassActive(item) {
@@ -73,19 +74,24 @@ export class SearchPage implements OnInit {
    setFilteredItems(){
     var search = this.searchTerm.toLowerCase()
     this.items = [];
+    this.allItems = [];
 
     if(search && search != '')
     {
       //alert("Buscando: " + search)
       if(document.getElementById('usuarios-button').classList.contains("active"))
       {
-        this.items = this.usuarios.filter( (elem) => { return elem._username.toLowerCase().indexOf(search) >= 0 } );
+        this.allItems = this.usuarios.filter( (elem) => { return elem._username.toLowerCase().indexOf(search) >= 0 } );
       }else{
-        this.items = this.recetas.filter( (elem) => { return elem._name.toLowerCase().indexOf(search) >= 0 } ); 
+        this.allItems = this.recetas.filter( (elem) => { return elem._name.toLowerCase().indexOf(search) >= 0 } ); 
       //PARA FILTRAR TAMBIEN DESCRIPCIONES|| elem._description.toLowerCase().indexOf(search) >= 0*/ } );
       }
+
+      for(var i=0;i<20 && i<this.allItems.length;i++)
+        this.items.push(this.allItems[i]);
       //alert("ITEMS = " + JSON.stringify(this.items))
     }
+
     this.searching = false;
   }
 
@@ -142,5 +148,21 @@ export class SearchPage implements OnInit {
   }
 
 
+  addItems(count){
+    this.searching = true;
+    
+    //Pausa ficticia de descarga de datos
+    setTimeout(()=>{
+      //Si habia 1 elemento [0] entobnces se añade el [1]
+      var lastCount = this.items.length;
+      
+      for(var i=lastCount;i<lastCount+count && i<this.allItems.length; i++){
+        this.items.push(this.allItems[i]);
+      }
+      
+      this.searching = false;
+    }, 800);
+
+  }
 
 }
