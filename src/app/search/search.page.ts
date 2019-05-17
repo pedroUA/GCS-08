@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -38,8 +39,7 @@ export class SearchPage implements OnInit {
         this.phSearchBar = 'Buscar usuarios...';
       }
     }
-    this.items = [];
-    this.allItems = [];
+    this.setFilteredItems();
   }
 
   changeClassActive(item) {
@@ -52,7 +52,7 @@ export class SearchPage implements OnInit {
     }
  }
 
-  constructor(private storage: Storage,public navCtrl: NavController) {
+  constructor(private storage: Storage,public navCtrl: NavController, private router: Router) {
     //Rellenaremos los datos de forma asincrona
     
     this.inicializarRecetasAleatorios();
@@ -149,7 +149,6 @@ export class SearchPage implements OnInit {
 
 
   addItems(count){
-    this.searching = true;
     
     //Pausa ficticia de descarga de datos
     setTimeout(()=>{
@@ -159,10 +158,33 @@ export class SearchPage implements OnInit {
       for(var i=lastCount;i<lastCount+count && i<this.allItems.length; i++){
         this.items.push(this.allItems[i]);
       }
-      
-      this.searching = false;
     }, 800);
 
+  }
+
+  ver(item){
+    if(item._username){
+      this.verUsuario(item);
+    }else{
+      this.verReceta(item);
+    }
+  }
+
+  verUsuario(user){
+    this.storage.set('verUsuario',user)
+    alert("Ver usuario " + user._username)
+    
+    
+    this.router.navigateByUrl('/profile/'+user._id);
+  }
+
+  verReceta(rec){
+    //Si ya vamos a ver un usuario no vamos a receta, esto es util cuando clickamos en @usuario en una receta
+    if(this.storage.get('verUsuario'))
+      return;
+
+    this.storage.set('verReceta',rec);
+    alert("Ver receta " + rec._name)
   }
 
 }
