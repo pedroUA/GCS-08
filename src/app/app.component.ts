@@ -55,7 +55,7 @@ export class AppComponent {
     },
     {
       title: 'Profile',
-      url: '/profile',
+      url: '/profile/:id',
       //icon: 'list'
     },
     {
@@ -133,6 +133,17 @@ export class AppComponent {
     var c = ["tomate","atún","espinacas","mayonesa","frutos secos","salmón","jamón","queso"]
 
     this.usuarios = [];
+    
+    var admin:Usuario = {
+      _id: 0,
+      _name: 'Administrador',
+      _username: 'admin',
+      _password: 'admin',
+      _email:'admin@admin.com',
+    }
+
+    this.usuarios.push(admin)
+
     //Iniciaremos 50 alimentos
     for(var i=0; i<50 ;i++){
           
@@ -141,7 +152,7 @@ export class AppComponent {
       var years = 12 + Math.abs(Math.floor(Math.random() * 77))
       
       var user : Usuario = {
-        _id : this.usuarios.length + 1,
+        _id : this.usuarios.length,
         _name : name,
         _username:name.replace(' ', '').replace(' ',''),
         _password:"contraseña",

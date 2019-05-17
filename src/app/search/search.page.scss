@@ -26,8 +26,10 @@ ion-item {
     margin-bottom: 15px;
 
     ion-label{
+        font-size-adjust: unset;
         p{
-            font-size: 10px;
+            color: rgb(255, 164, 28);
+            font-size: 12px;
         }
     }
     

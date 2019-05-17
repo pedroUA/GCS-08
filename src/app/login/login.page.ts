@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { Usuario } from '../usuario';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -9,8 +10,7 @@ import { Storage } from '@ionic/storage';
 })
 export class LoginPage implements OnInit {
 
-  usuarios = ["pepe14", "manolete15","pedroUA"];
-  passwords = ["123123", "123123","123123"];
+  usuarios:Usuario[] = [];
 
   username: string = "";
   password: string = "";
@@ -18,6 +18,9 @@ export class LoginPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router,
     public alertController: AlertController,
     private storage: Storage) { 
+      this.storage.get('usuarios').then( (users:Usuario[]) => {
+        this.usuarios = users;
+      })
       
     }
 
@@ -38,16 +41,17 @@ export class LoginPage implements OnInit {
   login() {
     console.log(this.username)
     console.log(this.password)
-    var existe = false;
+
+    var userLogued:Usuario = null;
 
     for(var i= 0; i < this.usuarios.length; i++) {
-      if(this.usuarios[i] == this.username && this.passwords[i] == this.password) {
-        existe = true;
+      if(this.usuarios[i]._username == this.username && this.usuarios[i]._password == this.password) {
+        userLogued = this.usuarios[i];
       }
     }
 
-    if(existe) {
-      this.storage.set('userLogged', this.username);
+    if(userLogued) {
+      this.storage.set('userLogged', userLogued);
       this.router.navigate(['home']);
       
     }
