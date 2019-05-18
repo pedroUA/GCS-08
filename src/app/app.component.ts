@@ -97,17 +97,24 @@ export class AppComponent {
     if(!this.storage.get('usuarios') || true){
       this.storage.set('usuarios',this.iniciarUsuarios());
     }
+    if(!this.storage.get('pesos') || true) {
+      this.storage.set('pesos', this.iniciarPesos());
+    }
+    if(!this.storage.get('calorico') || true) {
+      this.storage.set('calorico', this.iniciarCalorico());
+    }
     //alert("Datos en Storage!")
 
     this.storage.get('userLogged').then((userLogged) => {
       this.usuario_logueado = userLogged;
     });
   }
+
   wordRecetaGenerator(){
     var a = ["tornillos","macarrones","sandwich","ensalada","pizza","lasaña"]
     var b = [" de "," con "]
     var c = ["tomate","atún","espinacas","mayonesa","frutos secos","salmón","jamón","queso"]
-    
+
     var eleccionA = a[ Math.abs(Math.floor(Math.random() * a.length))];
     var eleccionB = b[ Math.abs(Math.floor(Math.random() * b.length))];
     var eleccionC = c[ Math.abs(Math.floor(Math.random() * c.length))];
@@ -119,7 +126,6 @@ export class AppComponent {
     var nombre = ["Pedro","Marta","Juan","Francisco","Paco","Pepe","Manuel","Samuel","Maria","Carla","Sandra"]
     var apellido = [" Gómez"," Lozano"," López"," Sánchez"," Santiago"," Llorca", " Pacheco", " García"," Martínez"," Serrano"," Pérez"," Soriano"]
 
-    
     var eleccionA = nombre[ Math.abs(Math.floor(Math.random() * nombre.length))];
     var eleccionB = apellido[ Math.abs(Math.floor(Math.random() * apellido.length))];
     var eleccionC = apellido[ Math.abs(Math.floor(Math.random() * apellido.length))];
@@ -204,4 +210,13 @@ export class AppComponent {
 
     return this.recetas;
   }
+
+  iniciarPesos = (): any[] => {
+    return [65.2, 64.6, 67.3, 65.4, 63.2, 63.5, 61.4];
+  }
+
+  iniciarCalorico = (): any[] => {
+    return [6843, 8492, 11532];
+  }
+
 }
