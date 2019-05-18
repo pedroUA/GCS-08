@@ -3,16 +3,16 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Actualización del progreso diario</ion-title>
+    <ion-title>Peso y calórias diarias</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content style="text-align: center">  
   <div style="display: flex; width: 100%;">
-    <div id="peso-button" class="button active" (click)="cambiarForm('peso')"></div>
-    <div id="calorico-button" class="button" (click)="cambiarForm('calorico')"></div>
+    <div id="peso-button" class="button active" (click)="changeForm('peso-button')">Peso</div>
+    <div id="calorico-button" class="button" (click)="changeForm('calorico-button')">Calórico</div>
   </div>
-  <!--
+
   <form [formGroup] ="formpeso" class="list-form" *ngIf="typeForm == 'peso'">
     <ion-list>
       <ion-item no-padding class="animated fadeInUp">
@@ -31,7 +31,7 @@
       </ion-item>
     </ion-list>
     <ion-button color="primary" shape="round" expands="block" type="submit" (click)="guardarPesoDiario()">
-      Peso
+      Guardar
     </ion-button>
   </form>
 
@@ -39,29 +39,28 @@
     <ion-list>
       <ion-item no-padding class="animated fadeInUp">
         <ion-label position ="floating">
-          <ion-icon name="lock" item-start></ion-icon>
+          <ion-icon name="restaurant" item-start></ion-icon>
           Grasas (Kcal)
         </ion-label>  
         <ion-input type="number" formControlName="grasas" required></ion-input>  
       </ion-item>
       <ion-item no-padding class="animated fadeInUp">
         <ion-label position = "floating">
-          <ion-icon name="lock" item-start></ion-icon>
+          <ion-icon name="restaurant" item-start></ion-icon>
           Hidratos (Kcal)
         </ion-label>  
         <ion-input type="number" formControlName="hidratos" required></ion-input>  
       </ion-item>
       <ion-item no-padding class="animated fadeInUp">
         <ion-label position = "floating">
-          <ion-icon name="lock" item-start></ion-icon>
+          <ion-icon name="restaurant" item-start></ion-icon>
           Proteinas (Kcal)
         </ion-label>  
         <ion-input type="number" formControlName="altura" required></ion-input>  
       </ion-item>
     </ion-list>
     <ion-button color="primary" shape="round" expands="block" type="submit" (click)="guardarCaloricoDiario()">
-      Calorias
+      Guardar
     </ion-button>
   </form>
--->
 </ion-content>
