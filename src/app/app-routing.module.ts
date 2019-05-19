@@ -26,7 +26,9 @@ const routes: Routes = [
   { path: 'mireceta', loadChildren: './mireceta/mireceta.module#MirecetaPageModule' },
   { path: 'personal-progress', loadChildren: './personal-progress/personal-progress.module#PersonalProgressPageModule' },
   { path: 'graphics', loadChildren: './graphics/graphics.module#GraphicsPageModule' },
-  { path: 'data-insert', loadChildren: './data-insert/data-insert.module#DataInsertPageModule' }
+  { path: 'data-insert', loadChildren: './data-insert/data-insert.module#DataInsertPageModule' },
+  { path: 'ver-receta', loadChildren: './ver-receta/ver-receta.module#VerRecetaPageModule' }
+
 
 
 ];

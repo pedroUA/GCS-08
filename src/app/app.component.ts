@@ -1,5 +1,6 @@
 import { Usuario } from './usuario';
 import { Receta } from './receta';
+import { Calorias } from './calorias';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -64,13 +65,7 @@ export class AppComponent {
       title: 'Search',
       url: '/search',
       //icon: 'list'
-    },/*
-    {
-      title: 'Cerrar sesion',
-      url: '/login',
-      color: "red"
-      //icon: 'list'
-    }*/
+    },
   ];
 
   constructor(
@@ -99,20 +94,25 @@ export class AppComponent {
 
     //alert("Iniciando datos en Storage...")
     //DE MOMENTO VOY A FORZAR QUE SE INCIIALICE SIEMPRE PARA TESTEO
-    
-    if(!this.storage.get('usuarios') || true){
-      this.storage.set('usuarios',this.iniciarUsuarios());
+    if (!this.storage.get('usuarios') || true){
+      this.storage.set('usuarios', this.iniciarUsuarios());
     }
-
-    if(!this.storage.get('recetas') || true){
-      this.storage.set('recetas',this.iniciarRecetas());
+    if (!this.storage.get('recetas') || true){
+      this.storage.set('recetas', this.iniciarRecetas());
+    }
+    if (!this.storage.get('pesos') || true) {
+      this.storage.set('pesos', this.iniciarPesos());
+    }
+    if (!this.storage.get('calorico') || true) {
+      this.storage.set('calorico', this.iniciarCalorico());
     }
   }
+
   wordRecetaGenerator(){
-    var a = ["tornillos","macarrones","sandwich","ensalada","pizza","lasaña"]
-    var b = [" de "," con "]
-    var c = ["tomate","atún","espinacas","mayonesa","frutos secos","salmón","jamón","queso"]
-    
+    var a = ["tornillos", "macarrones", "sandwich", "ensalada", "pizza", "lasaña"]
+    var b = [" de ", " con "]
+    var c = ["tomate", "atún", "espinacas", "mayonesa", "frutos secos", "salmón", "jamón", "queso"]
+
     var eleccionA = a[ Math.abs(Math.floor(Math.random() * a.length))];
     var eleccionB = b[ Math.abs(Math.floor(Math.random() * b.length))];
     var eleccionC = c[ Math.abs(Math.floor(Math.random() * c.length))];
@@ -121,10 +121,9 @@ export class AppComponent {
   }
 
   wordUsuarioGenerator(){
-    var nombre = ["Pedro","Marta","Juan","Francisco","Paco","Pepe","Manuel","Samuel","Maria","Carla","Sandra"]
-    var apellido = [" Gómez"," Lozano"," López"," Sánchez"," Santiago"," Llorca", " Pacheco", " García"," Martínez"," Serrano"," Pérez"," Soriano"]
+    var nombre = ["Pedro", "Marta", "Juan", "Francisco", "Paco", "Pepe", "Manuel", "Samuel", "Maria", "Carla", "Sandra"]
+    var apellido = [" Gómez", " Lozano", " López", " Sánchez", " Santiago", " Llorca", " Pacheco", " García", " Martínez", " Serrano", " Pérez", " Soriano"]
 
-    
     var eleccionA = nombre[ Math.abs(Math.floor(Math.random() * nombre.length))];
     var eleccionB = apellido[ Math.abs(Math.floor(Math.random() * apellido.length))];
     var eleccionC = apellido[ Math.abs(Math.floor(Math.random() * apellido.length))];
@@ -132,14 +131,14 @@ export class AppComponent {
     return eleccionA + eleccionB + eleccionC
   }
 
-  iniciarUsuarios = ():Usuario[] => { 
-    var a = ["Tornillos","Macarrones","Sandwich","Ensalada","Pizza","Lasaña"]
-    var b = ["de","con"]
-    var c = ["tomate","atún","espinacas","mayonesa","frutos secos","salmón","jamón","queso"]
+  iniciarUsuarios = (): Usuario[] => { 
+    var a = ["Tornillos", "Macarrones", "Sandwich", "Ensalada", "Pizza", "Lasaña"]
+    var b = ["de", "con"]
+    var c = ["tomate", "atún", "espinacas", "mayonesa", "frutos secos", "salmón", "jamón", "queso"]
 
     this.usuarios = [];
     
-    var admin:Usuario = {
+    var admin: Usuario = {
       _id: 0,
       _name: 'Administrador',
       _username: 'admin',
@@ -152,7 +151,7 @@ export class AppComponent {
     this.usuarios.push(admin)
 
     //Iniciaremos 50 alimentos
-    for(var i=0; i<50 ;i++){
+    for (var i = 0; i < 50 ; i++){
           
       var name = this.wordUsuarioGenerator();
       var sex = i % 2 == 0 ? 'male' : 'female';
@@ -161,14 +160,14 @@ export class AppComponent {
       var user : Usuario = {
         _id : this.usuarios.length,
         _name : name,
-        _username:name.replace(' ', '').replace(' ',''),
-        _password:"contraseña",
+        _username: name.replace(' ', '').replace(' ', ''),
+        _password: "contraseña",
         _sex: sex,
-        _years:years,
-        _address:'Calle de los inventos Piso 95 Z',
-        _email:name.replace(' ','').replace(' ','')+'@gmail.com',
-        _followers:[],
-        _following:[],
+        _years: years,
+        _address: 'Calle de los inventos Piso 95 Z',
+        _email: name.replace(' ', '').replace(' ', '') + '@gmail.com',
+        _followers: [],
+        _following: [],
         //Guardar las imagenes en /images/usuarios/[USERNAME].ext (/images/usuarios/francisco.png)
         _imageURL:'http://lorempixel.com/200/200/people',
       }
@@ -178,10 +177,10 @@ export class AppComponent {
     return this.usuarios;
   }
 
-  iniciarRecetas = ():Receta[] => { 
-    var a = ["tornillos","macarrones","sandwich","ensalada","pizza","lasaña"]
-    var b = ["de","con"]
-    var c = ["tomate","atún","espinacas","mayonesa","frutos secos","salmón","jamón","queso"]
+  iniciarRecetas = (): Receta[] => { 
+    var a = ["tornillos", "macarrones", "sandwich", "ensalada", "pizza", "lasaña"]
+    var b = ["de", "con"]
+    var c = ["tomate", "atún", "espinacas", "mayonesa", "frutos secos", "salmón", "jamón", "queso"]
 
     this.recetas = [];
     //Iniciaremos 50 alimentos
@@ -209,4 +208,32 @@ export class AppComponent {
 
     return this.recetas;
   }
+
+  iniciarPesos = (): number[] => {
+    let data: number[] = [];
+    // tslint:disable-next-line: prefer-for-of
+    const num = (Math.floor (Math.random () * 4 + 5)) * 1000;
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < 12; i++) {
+      data.push((Math.floor (Math.random () * 600 + num)) / 100);
+    }
+    return data;
+  }
+
+  iniciarCalorico = (): Calorias[] => {
+    let data: Calorias[];
+    let calorias: Calorias;
+    let h: number;
+    let p: number;
+    let g: number;
+    for (let i = 0; i < 7; i++) {
+      h = Math.floor (Math.random () * 552 + 644);
+      p = Math.floor (Math.random () * 552 + 644);
+      g = Math.floor (Math.random () * 552 + 644);
+      calorias = { hidratos: h, proteinas: p, grasas: g };
+      data.push(calorias);
+    }
+    return data;
+  }
+
 }
