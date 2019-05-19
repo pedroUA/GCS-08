@@ -1,0 +1,17 @@
+
+ion-content{
+
+    ion-card{
+        --background: white;
+    }
+    ion-card-title{
+        font-size: 1.2rem;
+    }
+    ion-card-subtitle.touchable{
+        --color: var(--ion-color-primary);
+        cursor: pointer;
+        &:hover{
+            --color: var(--ion-color-primary-hover)
+        }
+    }
+}

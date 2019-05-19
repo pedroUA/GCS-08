@@ -3,10 +3,22 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Profile</ion-title>
+    <ion-title *ngIf="autor._id == profile._id" >Mi perfil</ion-title>
+    <ion-title *ngIf="autor._id != profile._id" >@{{ autor._username }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<label>{{(this.usuario._username)}}</label>
+  <ion-card>
+    <ion-card-header>
+            <img style="width: 100%; height:200px;" [src]="autor._imageURL">
+    </ion-card-header>
+    <ion-card-content>
+        <ion-card-title>Username: {{autor._username}}</ion-card-title>
+        <ion-card-subtitle>Email: {{autor._email}}</ion-card-subtitle>
+        <ion-card-subtitle>Dirección: {{autor._address}}</ion-card-subtitle>
+        <ion-card-subtitle class="touchable" (click)="verRecetas()">Recetas: {{ cuantasRecetas() }}</ion-card-subtitle>
+        <ion-card-subtitle class="touchable" (click)="cerrarSesion()" *ngIf="autor._id == profile._id">Cerrar sesión</ion-card-subtitle>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

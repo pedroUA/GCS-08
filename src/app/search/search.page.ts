@@ -181,7 +181,8 @@ export class SearchPage implements OnInit {
 
   verReceta(rec:Receta){
     //Tras guardar la receta a ver en 'receta' vamos a la pagina 'mireceta' para mostrarla
-    this.storage.set('receta',rec).then(()=>{alert('Hay que ir a "mireceta"...');this.router.navigate(['mireceta'])})
+    if(!this.storage.get('usuario'))
+      this.storage.set('receta',rec).then(()=>{alert('Hay que ir a "mireceta"...');this.router.navigate(['mireceta'])})
   }
 
 }
