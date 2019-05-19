@@ -1,0 +1,35 @@
+div.button {
+    color:black;
+    width: 50%;
+    font-size: 1.4rem;
+    cursor: pointer;
+}
+
+div.button.active {
+    background-color:rgb(255, 164, 28); 
+ }
+ div.button.active:hover {
+    background-color:rgb(221, 139, 17); 
+}
+
+
+div.button.disable {
+    background-color:lightgray;
+}
+div.button:hover {
+    background-color:rgb(241, 241, 241); 
+}
+ion-item {
+    border-bottom: 1px solid rgb(199, 199, 199);
+    cursor: pointer;
+    margin-bottom: 15px;
+
+    ion-label{
+        font-size-adjust: unset;
+        p{
+            color: rgb(255, 164, 28);
+            font-size: 12px;
+        }
+    }
+    
+}
