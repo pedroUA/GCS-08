@@ -1,7 +1,7 @@
+
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
-import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -10,18 +10,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  usuario: Usuario = null;
-  id: String;
+  usuario: Usuario;
 
-  constructor(private storage:Storage, private route:ActivatedRoute) {    
-    var id = this.route.snapshot.paramMap.get('id')
+  constructor(private storage:Storage) {
+    //Si se introduce un usuario en el Storage es el que se verá
+    this.storage.get('usuario').then( user => {
+      alert("getting: " + user)
+      this.usuario = user;
+      this.storage.remove('usuario').then(user=>{alert("eliminado el usuario: " + user._username)})
+    })
 
-    if(id){
-      alert("Vamos a ver el usuario " + this.storage.get('usuarios')[id]._username)
+    //Si no se insertó usuario es por que se desean ver los datos del perfil
+    if(!this.usuario){
+      alert("Vamos a ver la cuenta personal")
     }else{
-      alert("Vamos a ver el perfil.")
+      alert("Vamos a ver otra cuenta")
     }
-    
   }
 
   ngOnInit() {

@@ -20,13 +20,13 @@
   </div>
 
   <ion-list lines="none" style="width:100%; align-self: center;">
-    <ion-item *ngFor="let item of items" style="width: 90%; left: 5%;"  (click)="ver(item)">
-        <ion-thumbnail slot="start">
+    <ion-item *ngFor="let item of items" style="width: 90%; left: 5%;">
+        <ion-thumbnail slot="start" (click)="ver(item)">
           <img style="width: 50px; height: 50px" [src]="item._imageURL">
         </ion-thumbnail>
           
         <ion-label>
-          {{ item._name}}
+          <ion-label (click)="ver(item)">{{item._name}}</ion-label>
           <!--Es un usuario-->
           <p *ngIf="item._username" (click)="verUsuario(item)">
             @{{item._username}}
