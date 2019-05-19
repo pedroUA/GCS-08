@@ -55,7 +55,7 @@ export class AppComponent {
     },
     {
       title: 'Profile',
-      url: '/profile/:id',
+      url: '/profile',
       //icon: 'list'
     },
     {
@@ -91,16 +91,18 @@ export class AppComponent {
 
     //alert("Iniciando datos en Storage...")
     //DE MOMENTO VOY A FORZAR QUE SE INCIIALICE SIEMPRE PARA TESTEO
-    if(!this.storage.get('recetas') || true){
-      this.storage.set('recetas',this.iniciarRecetas());
-    }
+    
     if(!this.storage.get('usuarios') || true){
       this.storage.set('usuarios',this.iniciarUsuarios());
+    }
+
+    if(!this.storage.get('recetas') || true){
+      this.storage.set('recetas',this.iniciarRecetas());
     }
     //alert("Datos en Storage!")
 
     this.storage.get('userLogged').then((userLogged) => {
-      this.usuario_logueado = userLogged;
+      this.usuario_logueado = userLogged._username;
     });
   }
   wordRecetaGenerator(){
@@ -167,7 +169,6 @@ export class AppComponent {
       }
       this.usuarios.push(user)
     }
-    this.usuarios.push()
 
     return this.usuarios;
   }
@@ -200,7 +201,6 @@ export class AppComponent {
       }
       this.recetas.push(receta)
     }
-    this.recetas.push()
 
     return this.recetas;
   }

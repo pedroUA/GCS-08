@@ -6,6 +6,8 @@ import { FormControl } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+//import { RouterExtensions } from "nativescript-angular/router";
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.page.html',
@@ -52,7 +54,9 @@ export class SearchPage implements OnInit {
     }
  }
 
-  constructor(private storage: Storage,public navCtrl: NavController, private router: Router) {
+  constructor(private storage: Storage,
+              //public navCtrl: NavController,
+              private router: Router) {
     //Rellenaremos los datos de forma asincrona
     
     this.inicializarRecetasAleatorios();
@@ -170,21 +174,14 @@ export class SearchPage implements OnInit {
     }
   }
 
-  verUsuario(user){
-    this.storage.set('verUsuario',user)
-    alert("Ver usuario " + user._username)
-    
-    
-    this.router.navigateByUrl('/profile/'+user._id);
+  verUsuario(user:Usuario){
+    //Tras guardar el usuario a ver en 'usuario' vamos a la pagina 'profile' para mostrarlo
+    this.storage.set('usuario',user).then(()=>this.router.navigate(['profile']))
   }
 
-  verReceta(rec){
-    //Si ya vamos a ver un usuario no vamos a receta, esto es util cuando clickamos en @usuario en una receta
-    if(this.storage.get('verUsuario'))
-      return;
-
-    this.storage.set('verReceta',rec);
-    alert("Ver receta " + rec._name)
+  verReceta(rec:Receta){
+    //Tras guardar la receta a ver en 'receta' vamos a la pagina 'mireceta' para mostrarla
+    this.storage.set('receta',rec).then(()=>{alert('Hay que ir a "mireceta"...');this.router.navigate(['mireceta'])})
   }
 
 }
