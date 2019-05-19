@@ -64,13 +64,7 @@ export class AppComponent {
       title: 'Search',
       url: '/search',
       //icon: 'list'
-    },/*
-    {
-      title: 'Cerrar sesion',
-      url: '/login',
-      color: "red"
-      //icon: 'list'
-    }*/
+    },
   ];
 
   constructor(
