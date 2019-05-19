@@ -6,6 +6,8 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
+import { async } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,7 @@ export class AppComponent {
 
   usuarios : Usuario[] = [];
   recetas : Receta[] = [];
-  usuario_logueado : string;
+  usuario : Usuario;
 
   public appPages = [
     {
@@ -62,32 +64,38 @@ export class AppComponent {
       title: 'Search',
       url: '/search',
       //icon: 'list'
-    },
+    },/*
     {
       title: 'Cerrar sesion',
       url: '/login',
       color: "red"
       //icon: 'list'
-    }
+    }*/
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private storage: Storage
+    private storage: Storage,
+    private route: Router
   ) {
     this.initializeApp();
   }
 
-
-
+  nav(page:string){    
+    this.route.navigate([page]);
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
     
+    
+    this.storage.get('userLogged').then((user:Usuario)=>{
+      this.usuario = user
+    });
 
     //alert("Iniciando datos en Storage...")
     //DE MOMENTO VOY A FORZAR QUE SE INCIIALICE SIEMPRE PARA TESTEO
@@ -103,11 +111,6 @@ export class AppComponent {
     if(!this.storage.get('calorico') || true) {
       this.storage.set('calorico', this.iniciarCalorico());
     }
-    //alert("Datos en Storage!")
-
-    this.storage.get('userLogged').then((userLogged) => {
-      this.usuario_logueado = userLogged._username;
-    });
   }
 
   wordRecetaGenerator(){
@@ -146,6 +149,8 @@ export class AppComponent {
       _username: 'admin',
       _password: 'admin',
       _email:'admin@admin.com',
+      _address: 'Calle que te importa 123',
+      _imageURL: 'https://thispersondoesnotexist.com/image',
     }
 
     this.usuarios.push(admin)
@@ -169,7 +174,7 @@ export class AppComponent {
         _followers:[],
         _following:[],
         //Guardar las imagenes en /images/usuarios/[USERNAME].ext (/images/usuarios/francisco.png)
-        _imageURL:'http://lorempixel.com/50/50/people',
+        _imageURL:'http://lorempixel.com/200/200/people',
       }
       this.usuarios.push(user)
     }
@@ -185,9 +190,9 @@ export class AppComponent {
     this.recetas = [];
     //Iniciaremos 50 alimentos
     for(var i=0; i<50 ;i++){
-      var protein = Math.abs(Math.floor(Math.random() * 10000)/1000);
-      var carbohydrates = Math.abs(Math.floor(Math.random() * 10000)/1000);
-      var fat = Math.abs(Math.floor(Math.random() * 10000)/1000);
+      var protein = Math.abs(Math.floor(Math.random() * 10000)/1000).toFixed(3);
+      var carbohydrates = Math.abs(Math.floor(Math.random() * 10000)/1000).toFixed(3);
+      var fat = Math.abs(Math.floor(Math.random() * 10000)/1000).toFixed(3);
 
 
       var receta : Receta = {
@@ -196,12 +201,12 @@ export class AppComponent {
         _description:"Descripción  detallada del alimento...",
         _ingredientes: ["Por","Ejemplo","Los","Del","Titulo"],
         _author: Math.abs(Math.floor(Math.random() * this.usuarios.length-1)),
-        _protein:protein,
-        _carbohydrates:carbohydrates,
-        _fat:fat,
-        _kcals:protein*4 + carbohydrates*4 + fat*9,
+        _protein:Number(protein),
+        _carbohydrates:Number(carbohydrates),
+        _fat:Number(fat),
+        _kcals:Number(protein)*4 + Number(carbohydrates)*4 + Number(fat)*9,
         _likes:[],
-        _imageURL:'http://lorempixel.com/50/50/food'
+        _imageURL:'http://lorempixel.com/200/200/food'
       }
       this.recetas.push(receta)
     }

@@ -53,7 +53,6 @@ export class LoginPage implements OnInit {
     if(userLogued) {
       this.storage.set('userLogged', userLogued);
       this.router.navigate(['home']);
-      
     }
     else {
       this.presentAlert();

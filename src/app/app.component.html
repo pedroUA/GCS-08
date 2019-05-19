@@ -1,22 +1,18 @@
 <ion-app>
   <ion-split-pane>
     <ion-menu>
-      <ion-header>
+      <ion-header (click)="this.nav('profile')"> 
         <ion-toolbar color="secondary">
             <div class="item item-avatar">
               <div>
-                 
                   <ion-thumbnail  slot="start">
                       <ion-chip>
                           <ion-avatar>
-                              <img width="150" height="150" src="../assets/images/users/{{usuario_logueado}}.jpg">
+                              <img width="150" height="150" [src]="usuario._imageURL">
                           </ion-avatar>
-                          <ion-label>{{usuario_logueado._username}}</ion-label>
+                          <ion-label>@{{usuario._username}}</ion-label>
                         </ion-chip>
                     </ion-thumbnail>
-                
-
-                
               </div>
             </div>
         </ion-toolbar>
@@ -26,7 +22,7 @@
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" color="secondary">
               <ion-label>
-                  <font [color]="[p.color]">{{p.title}}</font>
+                  <label color="[p.color]">{{p.title}}</label>
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
