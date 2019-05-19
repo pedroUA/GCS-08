@@ -41,6 +41,21 @@ export class CrearecetaPage implements OnInit {
 
  
   ngOnInit() {
+    this.datos = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      descripcion: ['', Validators.required],
+      ingredientes: ['', Validators.required],
+      proteinas: ['',Validators.required],
+      carbos: ['', Validators.required],
+      grasa: ['', Validators.required],
+
+
+
+
+    });
+
+
+
   }
   onSubmitTemplate(){
     console.log('Form submit');
@@ -65,7 +80,7 @@ export class CrearecetaPage implements OnInit {
     _id : this.arecetas.length,
     _name : this.datos.get('nombre').value,
     _description:this.datos.get('descripcion').value,
-    _ingredientes: this.datos.get('ingredientes').value,
+    _ingredientes: String(this.datos.get('ingredientes').value).split(','),
     _author: this.perfil._id,
     _protein: this.datos.get('proteinas').value,
     _carbohydrates:  this.datos.get('carbos').value,

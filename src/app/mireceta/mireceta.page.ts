@@ -13,7 +13,7 @@ export class MirecetaPage implements OnInit {
   autor:Usuario;
   perfil:Usuario;
 
-  constructor(private storage: Storage, private route: ActivatedRoute, private router:Router) {
+  constructor(private storage: Storage, private route:Router) {
     //NOTA: se puede omitir la asincronía con await pero me indica que no son funciones asincronas
     //Pero en otra pagina me hizo algo bastante raro si no lo ponia asi...... OwO...
     
@@ -55,7 +55,13 @@ export class MirecetaPage implements OnInit {
   }
 
   verReceta(receta:Receta){
-    this.storage.set('receta',receta).then(function(){ this.route.navigate(['receta']); })
+    alert("rece: " + JSON.stringify(receta))
+    
+    this.storage.set('receta',receta).then(() => {
+
+      this.route.navigate(['ver-receta']).catch(err=>alert("AJ COÑO:"+err))
+
+    }).catch(err=>alert(err))
   }
 
   ngOnInit() {
