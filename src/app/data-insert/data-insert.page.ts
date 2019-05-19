@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Receta } from '../receta';
 import { Usuario } from '../usuario';
+import { Calorias } from '../calorias';
 
 @Component({
   selector: 'app-data-insert',
