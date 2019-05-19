@@ -9,6 +9,14 @@
 </ion-header>
 
 <ion-content padding center text-center>
+  <div *ngIf="misRecetas.length == 0">
+      <div class="container text-center mb-5 mt-5">
+          <div class="alert alert-warning">
+              <strong *ngIf="this.perfil._id == this.autor._id" >¡No tienes recetas!</strong>
+              <strong *ngIf="this.perfil._id != this.autor._id">¡@{{this.autor._username}} no tiene recetas!</strong>
+          </div>
+      </div>
+  </div>
     <div *ngFor="let receta of misRecetas">
     <ion-card (click)="verReceta(receta)">
         <img height="150px" src="{{ receta._imageURL }}">
@@ -24,7 +32,9 @@
         </ion-card-content>
         <hr>-->
         <ion-card-content>
-          P:{{ receta._protein.toFixed(1) }} CH:{{ receta._carbohydrates.toFixed(1) }} G:{{ receta._fat.toFixed(1) }}
+          <strong>P:</strong>{{ receta._protein.toFixed(1) }} 
+          <strong>CH:</strong>{{ receta._carbohydrates.toFixed(1) }} 
+          <strong>G:</strong>{{ receta._fat.toFixed(1) }}
         </ion-card-content>
           
       </ion-card>  
