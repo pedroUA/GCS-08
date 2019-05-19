@@ -1,4 +1,3 @@
-import { AppComponent } from './../../../../HeartStoneApp/src/app/app.component';
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
