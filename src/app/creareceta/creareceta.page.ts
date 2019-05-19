@@ -17,13 +17,16 @@ export class CrearecetaPage implements OnInit {
   
  
  datos: FormGroup;
- ausuarios:Array<Usuario> = [];
-
- arecetas:Array<Receta>  = [];
+ ausuarios:Usuario[] = [];
+ perfil: Usuario;
+ arecetas:Receta[]  = [];
 
  
  constructor(private storage: Storage,private router: Router, public formBuilder: FormBuilder) {
-    
+    this.storage.get('userLogged').then( (usuario:Usuario) => this.perfil=usuario );
+    this.storage.get('usuarios').then( (arrayUsers:Usuario[]) => { this.ausuarios = arrayUsers; } );
+    this.storage.get('recetas').then( (arrayRecetas:Receta[]) => { this.arecetas = arrayRecetas; } );
+
     this.datos = new FormGroup({
       nombre: new FormControl,
       descripcion: new FormControl,
@@ -58,16 +61,12 @@ export class CrearecetaPage implements OnInit {
   }
 
   public guardarReceta(){
-    
-    this.storage.get('usuarios').then( (arrayUsers) => { this.ausuarios = arrayUsers; } );
-    this.storage.get('recetas').then( (arrayRecetas) => { this.arecetas = arrayRecetas; } );
-
     var receta:Receta={
     _id : this.arecetas.length,
     _name : this.datos.get('nombre').value,
     _description:this.datos.get('descripcion').value,
     _ingredientes: this.datos.get('ingredientes').value,
-    _author: Math.abs(Math.floor(Math.random()))-1,
+    _author: this.perfil._id,
     _protein: this.datos.get('proteinas').value,
     _carbohydrates:  this.datos.get('carbos').value,
     _fat: this.datos.get('grasa').value,
@@ -81,9 +80,8 @@ export class CrearecetaPage implements OnInit {
   this.arecetas.push(receta);
 
   this.storage.set('recetas',this.arecetas);
-    
-
   
+  this.router.navigate(['mireceta'])
 }
     
   

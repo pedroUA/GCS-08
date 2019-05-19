@@ -2,6 +2,8 @@
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
+import { Receta } from '../receta';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -10,22 +12,38 @@ import { Usuario } from '../usuario';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  usuario: Usuario;
+  autor: Usuario;
+  profile: Usuario;
+  recetas: Receta[];
 
-  constructor(private storage:Storage) {
+  constructor(private storage:Storage, private route:Router) {
+    //Obtenemos recetas
+    this.storage.get('recetas').then((rec:Receta[])=>{this.recetas=rec})
+
     //Si se introduce un usuario en el Storage es el que se verá
-    this.storage.get('usuario').then( user => {
-      alert("getting: " + user)
-      this.usuario = user;
-      this.storage.remove('usuario').then(user=>{alert("eliminado el usuario: " + user._username)})
-    })
+    this.storage.get('userLogged').then( (usuario:Usuario) => {
+      this.profile = usuario;
 
-    //Si no se insertó usuario es por que se desean ver los datos del perfil
-    if(!this.usuario){
-      alert("Vamos a ver la cuenta personal")
-    }else{
-      alert("Vamos a ver otra cuenta")
-    }
+    }).then(()=> //Usuario logueado o perfil?
+      this.storage.get('usuario').then((user:Usuario) => this.autor = user || this.profile )
+
+    //Eliminamos el usuario parametrizado si había
+    ).then(()=>this.storage.remove('usuario'));
+
+  }
+
+  cuantasRecetas() {
+    return this.recetas.filter(elem => { return elem._author == this.autor._id }).length
+  }
+
+  verRecetas(){
+    this.storage.set('autor',this.autor)
+    this.route.navigate(['mireceta'])
+  }
+
+  cerrarSesion() {
+    this.storage.remove('userLogged');
+    this.route.navigate(['login']);
   }
 
   ngOnInit() {

@@ -1,3 +1,4 @@
+import { AppComponent } from './../../../../HeartStoneApp/src/app/app.component';
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
@@ -53,7 +54,6 @@ export class LoginPage implements OnInit {
     if(userLogued) {
       this.storage.set('userLogged', userLogued);
       this.router.navigate(['home']);
-      
     }
     else {
       this.presentAlert();
