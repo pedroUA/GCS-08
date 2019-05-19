@@ -1,5 +1,7 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { Chart } from 'chart.js';
+import { Calorias } from '../calorias';
 
 @Component({
   selector: 'app-graphics',
@@ -13,8 +15,13 @@ export class GraphicsPage implements AfterViewInit {
 
   pieChart: any;
   lineChart: any;
+  pesos:number[];
+  calorico:Calorias[];
 
-  constructor() { }
+  constructor(private storage: Storage) { 
+    this.storage.get('pesos').then( (result:number[]) => this.pesos = result );
+    this.storage.get('calorico').then( (result:Calorias[]) => this.calorico = result );
+  }
 
   ngAfterViewInit() {
     setTimeout(() => {
@@ -25,16 +32,6 @@ export class GraphicsPage implements AfterViewInit {
     }, 350);
   }
 
-  /*
-  updateData() {
-    // After instantiating your chart, its data is accessible and
-    // can be changed anytime with the function update().
-    // It takes care of everything and even redraws the animations :D
-    this.pieChart.data.datasets[0].data = [Math.random() * 1000, Math.random() * 1000, Math.random() * 1000];
-    this.pieChart.update();
-  }
-  */
-
   getChart(context, chartType, data, options?) {
     return new Chart(context, {
       data,
@@ -44,11 +41,19 @@ export class GraphicsPage implements AfterViewInit {
   }
 
   getPieChart() {
+    let grasas = 0;
+    let hidratos = 0;
+    let proteinas = 0;
+    for(let i=0;i<this.calorico.length;i++) {
+      grasas += this.calorico[i].grasas;
+      hidratos += this.calorico[i].hidratos;
+      proteinas += this.calorico[i].proteinas;
+    }
     const data = {
       labels: ['Grasas', 'Proteinas', 'Hidratos'],
       datasets: [
         {
-          data: [213, 46, 328],
+          data: [grasas, proteinas, hidratos],
           backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
           hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
         }]
@@ -57,8 +62,90 @@ export class GraphicsPage implements AfterViewInit {
   }
 
   getLineChart() {
+    let noviembre = 0;
+    let diciembre = 0;
+    let enero = 0;
+    let febrero = 0;
+    let marzo = 0;
+    let abril = 0;
+    let mayo = 0;
+    let min: number;
+    let max: number;
+    const meses = ['Noviembre', 'Diciembre', 'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo'];
+    for(let i=0;i<meses.length;i++) {
+      switch (meses[i]) {
+        case 'Noviembre': { //0-29
+          min = 0;
+          max = 29;
+          break;
+        }
+        case 'Diciembre': { //30-60
+          min = 30;
+          max = 60;
+          break; 
+        }
+        case 'Enero': { //61-91
+          min = 61;
+          max = 91;
+          break;
+        }
+        case 'Febrero': { //92-119
+          min = 92;
+          max = 119;
+          break; 
+        } 
+        case 'Marzo': { //120-150
+          min = 120;
+          max = 150;
+          break;
+        }
+        case 'Abril': { //151-180
+          min = 151;
+          max = 180;
+          break;
+        }
+        default: { //181-211
+          min = 181;
+          max = 211;
+          break;
+        }
+      }
+      for(let j=min;j<=max;j++) {
+        if(min == 0) {
+          noviembre += this.pesos[j];
+        } else if (min == 30) {
+          diciembre += this.pesos[j];
+        } else if (min == 61) {
+          enero += this.pesos[j];
+        } else if (min == 92) {
+          febrero += this.pesos[j];
+        } else if (min == 120) {
+          marzo += this.pesos[j];
+        } else if (min == 151) {
+          abril += this.pesos[j];
+        } else {
+          mayo += this.pesos[j];
+        }
+      }
+    }
+    noviembre = noviembre/30.0;
+    noviembre = parseFloat(noviembre.toFixed(1));
+    diciembre = diciembre/31.0;
+    diciembre = parseFloat(diciembre.toFixed(1));
+    enero = enero/31.0;
+    enero = parseFloat(enero.toFixed(1));
+    febrero = febrero/28.0;
+    febrero = parseFloat(febrero.toFixed(1));
+    marzo = marzo/31.0;
+    marzo = parseFloat(marzo.toFixed(1));
+    abril = abril/30.0;
+    abril = parseFloat(abril.toFixed(1));
+    mayo = mayo/31.0;
+    mayo = parseFloat(mayo.toFixed(1));
+
+    const pesos2 = [noviembre, diciembre, enero, febrero, marzo, abril, mayo];
     const data = {
-      labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
+      labels: meses,
       datasets: [
         {
           label: 'Peso',
@@ -79,7 +166,7 @@ export class GraphicsPage implements AfterViewInit {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           pointHitRadius: 10,
-          data: [65.2, 64.6, 67.3, 65.4, 63.2, 63.5, 61.4],
+          data: pesos2,
           spanGaps: false,
         }/*,
         {

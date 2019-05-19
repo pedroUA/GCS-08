@@ -211,25 +211,23 @@ export class AppComponent {
 
   iniciarPesos = (): number[] => {
     let data: number[] = [];
-    // tslint:disable-next-line: prefer-for-of
-    const num = (Math.floor (Math.random () * 4 + 5)) * 1000;
-    // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < 12; i++) {
-      data.push((Math.floor (Math.random () * 600 + num)) / 100);
+    const num = Math.abs(Math.floor(Math.random()*4+5))*1000;
+    for (let i = 0; i < 212; i++) {
+      data.push(Math.abs(Math.floor(Math.random()*600+num))/100);
     }
     return data;
   }
 
   iniciarCalorico = (): Calorias[] => {
-    let data: Calorias[];
+    let data: Calorias[] = [];
     let calorias: Calorias;
     let h: number;
     let p: number;
     let g: number;
     for (let i = 0; i < 7; i++) {
-      h = Math.floor (Math.random () * 552 + 644);
-      p = Math.floor (Math.random () * 552 + 644);
-      g = Math.floor (Math.random () * 552 + 644);
+      h = Math.abs(Math.floor(Math.random()*552+644));
+      p = Math.abs(Math.floor(Math.random()*552+644));
+      g = Math.abs(Math.floor(Math.random()*552+644));
       calorias = { hidratos: h, proteinas: p, grasas: g };
       data.push(calorias);
     }
