@@ -17,6 +17,8 @@ export class RegistroPage implements OnInit {
   password: string = "";
   password_repeat: string ="";
   email: string ="";
+  name="";
+  apellidos ="";
 
   constructor(private route: ActivatedRoute, private router: Router,
     public alertController: AlertController,

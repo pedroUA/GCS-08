@@ -11,7 +11,7 @@
 <ion-content style="text-align: center">  
   <div style="display: flex; width: 100%;">
     <div id="seguidores-button" class="button active" (click)="changeClassActive('seguidores-button')">Seguidores</div>
-    <div id="seguidos-button" class="button" (click)="changeClassActive('seguidos-button')">Siguiendo</div>
+    <div id="seguidos-button" class="button" (click)="changeClassActive('seguidos-button')">Seguidos</div>
   </div>
   <ion-searchbar debounce="800" (ionInput)="searching=true;" (ionChange)="setFilteredItems()" style="z-index:99;" id="search-bar" [placeholder]="phSearchBar" (ionInput)="startSearching()" [(ngModel)]="searchTerm"></ion-searchbar>
   
