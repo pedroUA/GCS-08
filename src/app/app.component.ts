@@ -25,46 +25,50 @@ export class AppComponent {
       title: 'Home',
       url: '/home',
       icon: 'home'
-    },
+    },/*
     {
       title: 'List',
       url: '/list',
       icon: 'list'
-    },
+    },*/
     {
-      title: 'Crear Receta',
+      title: 'Crear receta',
       url: '/creareceta',
       //icon: 'list'
     },
     {
-      title: 'Mi Receta',
+      title: 'Mis recetas',
       url: '/mireceta',
       //icon: 'list'
-    },
+    },/*
     {
       title: 'Personal progress',
       url: '/personal-progress',
       //icon: 'list'
-    },
+    },*/
     {
-      title: 'Graphics',
+      title: 'Progreso - Histórico',
       url: '/graphics',
       //icon: 'list'
     },
     {
-      title: 'Data insert',
+      title: 'Progreso - Insertar Datos',
       url: '/data-insert',
       //icon: 'list'
     },
     {
-      title: 'Profile',
+      title: 'Perfil',
       url: '/profile',
       //icon: 'list'
     },
     {
-      title: 'Search',
+      title: 'Buscar',
       url: '/search',
       //icon: 'list'
+    },
+    {
+      title: 'Following',
+      url: '/following'
     },
   ];
 
@@ -146,6 +150,8 @@ export class AppComponent {
       _email:'admin@admin.com',
       _address: 'Calle que te importa 123',
       _imageURL: 'https://thispersondoesnotexist.com/image',
+      _followers: [],
+      _following: []
     }
 
     this.usuarios.push(admin)
@@ -211,25 +217,23 @@ export class AppComponent {
 
   iniciarPesos = (): number[] => {
     let data: number[] = [];
-    // tslint:disable-next-line: prefer-for-of
-    const num = (Math.floor (Math.random () * 4 + 5)) * 1000;
-    // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < 12; i++) {
-      data.push((Math.floor (Math.random () * 600 + num)) / 100);
+    const num = Math.abs(Math.floor(Math.random()*4+5))*1000;
+    for (let i = 0; i < 212; i++) {
+      data.push(Math.abs(Math.floor(Math.random()*600+num))/100);
     }
     return data;
   }
 
   iniciarCalorico = (): Calorias[] => {
-    let data: Calorias[];
+    let data: Calorias[] = [];
     let calorias: Calorias;
     let h: number;
     let p: number;
     let g: number;
     for (let i = 0; i < 7; i++) {
-      h = Math.floor (Math.random () * 552 + 644);
-      p = Math.floor (Math.random () * 552 + 644);
-      g = Math.floor (Math.random () * 552 + 644);
+      h = Math.abs(Math.floor(Math.random()*552+644));
+      p = Math.abs(Math.floor(Math.random()*552+644));
+      g = Math.abs(Math.floor(Math.random()*552+644));
       calorias = { hidratos: h, proteinas: p, grasas: g };
       data.push(calorias);
     }

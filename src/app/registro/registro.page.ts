@@ -82,7 +82,9 @@ export class RegistroPage implements OnInit {
             _name: this.username,
             _username: this.username,
             _password: this.password,
-            _email: this.email
+            _email: this.email,
+            _followers: [],
+            _following: [],
           }
 
           //Añadimos el usuario registrado

@@ -3,14 +3,15 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Buscador de...</ion-title>
+    <ion-title *ngIf="perfil._id == profile._id">Tu red social</ion-title>
+    <ion-title *ngIf="perfil._id != profile._id" >Gente de @{{perfil._username}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content style="text-align: center">  
   <div style="display: flex; width: 100%;">
-    <div id="recetas-button" class="button active" (click)="changeClassActive('recetas-button')">Recetas</div>
-    <div id="usuarios-button" class="button" (click)="changeClassActive('usuarios-button')">Usuarios</div>
+    <div id="seguidores-button" class="button active" (click)="changeClassActive('seguidores-button')">Seguidores</div>
+    <div id="seguidos-button" class="button" (click)="changeClassActive('seguidos-button')">Siguiendo</div>
   </div>
   <ion-searchbar debounce="800" (ionInput)="searching=true;" (ionChange)="setFilteredItems()" style="z-index:99;" id="search-bar" [placeholder]="phSearchBar" (ionInput)="startSearching()" [(ngModel)]="searchTerm"></ion-searchbar>
   
@@ -21,22 +22,15 @@
 
   <ion-list lines="none" style="width:100%; align-self: center;">
     <ion-item *ngFor="let item of items" style="width: 90%; left: 5%;">
-        <ion-thumbnail slot="start" (click)="ver(item)">
+        <ion-thumbnail slot="start" (click)="verUsuario(item)">
           <img style="width: 50px; height: 50px" [src]="item._imageURL">
         </ion-thumbnail>
           
         <ion-label>
-          <ion-label (click)="ver(item)">{{item._name}}</ion-label>
-          <!--Es un usuario-->
-          <p *ngIf="item._username" (click)="verUsuario(item)">
-            @{{item._username}}
-          </p>
-          <!--Es una receta-->
-          <p *ngIf="!item._username" (click)="verUsuario(this.usuarios[item._author])" >
-            @{{this.usuarios[item._author]._username}}
-          </p>
-          <div *ngIf="item._username">
-            <ion-button color="primary" *ngIf="!item._followers.includes(perfil._id.valueOf())" (click)="seguir(item)">Seguir</ion-button>
+          <ion-label (click)="verUsuario(item)">{{item._name}}</ion-label>
+          <p (click)="verUsuario(item)">@{{item._username}}</p>
+          <div *ngIf="item._id != profile._id" >
+            <ion-button color="primary" *ngIf="!item._followers.includes(perfil._id.valueOf())"  (click)="seguir(item)">Seguir</ion-button>
             <ion-button color="success" *ngIf="item._followers.includes(perfil._id.valueOf())" (click)="noSeguir(item)">Siguiendo</ion-button>
           </div>
         </ion-label>
