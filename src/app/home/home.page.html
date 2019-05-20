@@ -15,16 +15,16 @@
       <div id="usuarios-button" class="button" (click)="changeClassActive('usuarios-button')">Siguiendo</div>
     </div>
           <ion-list lines="none" style="width:100%; align-self: center;">
-              <ion-item *ngFor="let item of recetas" style="width: 90%; left: 5%;" color="tertiary"  (click)="ver(item)">
+              <ion-item *ngFor="let receta of recetas" style="width: 90%; left: 5%;" color="tertiary"  (click)="ver(receta)">
                   <ion-thumbnail slot="start">
-                    <img style="width: 50px; height: 50px" [src]="item._imageURL">
+                    <img style="width: 50px; height: 50px" [src]="receta._imageURL">
                   </ion-thumbnail>
                     
                   <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s ios hydrated">
-                      <h3>{{ item._name}}</h3>
-                      <p>{{item._description}}</p>
-                      <p *ngIf="usuarios[item._author]" style="color:red" (click)="verUsuario(item)">
-                          {{usuarios[item._author]._username}}
+                      <h3>{{ receta._name}}</h3>
+                      <p>{{receta._description}}</p>
+                      <p *ngIf="usuarios[receta._author]" style="color:red" (click)="verUsuario(receta)">
+                          {{usuarios[receta._author]._username}}
                       </p>
                   </ion-label>
                 </ion-item>
