@@ -27,7 +27,8 @@ const routes: Routes = [
   { path: 'personal-progress', loadChildren: './personal-progress/personal-progress.module#PersonalProgressPageModule' },
   { path: 'graphics', loadChildren: './graphics/graphics.module#GraphicsPageModule' },
   { path: 'data-insert', loadChildren: './data-insert/data-insert.module#DataInsertPageModule' },
-  { path: 'ver-receta', loadChildren: './ver-receta/ver-receta.module#VerRecetaPageModule' }
+  { path: 'ver-receta', loadChildren: './ver-receta/ver-receta.module#VerRecetaPageModule' },  { path: 'following', loadChildren: './following/following.module#FollowingPageModule' }
+
 
 
 

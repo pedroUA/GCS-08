@@ -25,46 +25,50 @@ export class AppComponent {
       title: 'Home',
       url: '/home',
       icon: 'home'
-    },
+    },/*
     {
       title: 'List',
       url: '/list',
       icon: 'list'
-    },
+    },*/
     {
-      title: 'Crear Receta',
+      title: 'Crear receta',
       url: '/creareceta',
       //icon: 'list'
     },
     {
-      title: 'Mi Receta',
+      title: 'Mis recetas',
       url: '/mireceta',
       //icon: 'list'
-    },
+    },/*
     {
       title: 'Personal progress',
       url: '/personal-progress',
       //icon: 'list'
-    },
+    },*/
     {
-      title: 'Graphics',
+      title: 'Progreso - Histórico',
       url: '/graphics',
       //icon: 'list'
     },
     {
-      title: 'Data insert',
+      title: 'Progreso - Insertar Datos',
       url: '/data-insert',
       //icon: 'list'
     },
     {
-      title: 'Profile',
+      title: 'Perfil',
       url: '/profile',
       //icon: 'list'
     },
     {
-      title: 'Search',
+      title: 'Buscar',
       url: '/search',
       //icon: 'list'
+    },
+    {
+      title: 'Following',
+      url: '/following'
     },
   ];
 
@@ -146,6 +150,8 @@ export class AppComponent {
       _email:'admin@admin.com',
       _address: 'Calle que te importa 123',
       _imageURL: 'https://thispersondoesnotexist.com/image',
+      _followers: [],
+      _following: []
     }
 
     this.usuarios.push(admin)
