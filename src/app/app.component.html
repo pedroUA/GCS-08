@@ -20,7 +20,7 @@
       <ion-content color="secondary">
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]" color="secondary">
+            <ion-item *ngIf="p.title != 'Perfil'" [routerDirection]="'root'" [routerLink]="[p.url]" color="secondary">
               <ion-label>
                   <label color="[p.color]">{{p.title}}</label>
               </ion-label>

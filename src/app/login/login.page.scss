@@ -1,5 +1,39 @@
 :host {
     ion-content {
-        --background: linear-gradient(135deg, var(--ion-color-dark), var(--ion-color-primary));
+        --background: --ion-color-white;
     }
+}
+
+.btn-naranja {
+    color: #212529;
+    background-color: #fea038;
+    border-color: #fea038;
+  }
+  
+  .btn-naranja:hover {
+    color: #212529;
+    background-color: #d88322;
+    border-color: #cb7922; //-D0A00
+  }
+  
+  .btn-naranja:focus, .btn-naranja.focus {
+    box-shadow: 0 0 0 0.2rem rgba(254,160,56,0.5); //#FFC107
+  }
+  
+  .btn-naranja.disabled, .btn-naranja:disabled {
+    color: #212529;
+    background-color: #fea038;
+    border-color: #fea038;
+  }
+  
+  .btn-naranja:not(:disabled):not(.disabled):active, .btn-naranja:not(:disabled):not(.disabled).active,
+  .show > .btn-naranja.dropdown-toggle {
+    color: #212529;
+    background-color: #d27d31; //d39e00
+    border-color: #C57431;
+  }
+  
+  .btn-naranja:not(:disabled):not(.disabled):active:focus, .btn-naranja:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-naranja.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem  rgba(254,160,56,0.5);//rgba(255, 193, 7, 0.5); 
   }
