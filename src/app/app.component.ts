@@ -22,33 +22,23 @@ export class AppComponent {
 
   public appPages = [
     {
-      title: 'Home',
+      title: 'Inicio',
       url: '/home',
-      icon: 'home'
-    },/*
+      //icon: 'home'
+    },
     {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    },*/
-    {
-      title: 'Crear receta',
-      url: '/creareceta',
+      title: 'Buscar',
+      url: '/search',
       //icon: 'list'
     },
     {
       title: 'Mis recetas',
       url: '/mireceta',
       //icon: 'list'
-    },/*
+    },
     {
-      title: 'Personal progress',
-      url: '/personal-progress',
-      //icon: 'list'
-    },*/
-    {
-      title: 'Progreso - Histórico',
-      url: '/graphics',
+      title: 'Crear receta',
+      url: '/creareceta',
       //icon: 'list'
     },
     {
@@ -57,19 +47,20 @@ export class AppComponent {
       //icon: 'list'
     },
     {
+      title: 'Progreso - Histórico',
+      url: '/graphics',
+      //icon: 'list'
+    },
+    {
       title: 'Perfil',
       url: '/profile',
       //icon: 'list'
     },
     {
-      title: 'Buscar',
-      url: '/search',
-      //icon: 'list'
-    },
-    {
-      title: 'Following',
+      title: 'Seguidores/Seguidos',
       url: '/following'
-    },
+      //icon: 'list'
+    }
   ];
 
   constructor(

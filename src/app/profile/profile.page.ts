@@ -1,10 +1,9 @@
-
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
 import { Receta } from '../receta';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, MenuController } from '@ionic/angular';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Component({
@@ -18,8 +17,9 @@ export class ProfilePage implements OnInit {
   recetas: Receta[];
   usuarios: Usuario[];
 
-  constructor(private storage:Storage, private route:Router, public navCtrl: NavController) {
+  constructor(private storage:Storage, private route:Router, public navCtrl: NavController, private menuCtrl: MenuController) {
     this.load();
+    this.menuCtrl.close();
   }
 
 
