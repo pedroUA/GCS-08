@@ -20,7 +20,13 @@
         <ion-card-subtitle class="touchable" (click)="verRecetas()">Recetas: {{ cuantasRecetas() }}</ion-card-subtitle>
         <ion-card-subtitle class="touchable" (click)="verSeguidores()">Seguidores: {{ perfil._followers.length }}</ion-card-subtitle>
         <ion-card-subtitle class="touchable" (click)="verSeguidos()">Seguidos: {{ perfil._following.length }}</ion-card-subtitle>
-        <ion-card-subtitle class="touchable" (click)="cerrarSesion()" *ngIf="perfil._id == profile._id">Cerrar sesión</ion-card-subtitle>
-    </ion-card-content>
+        <div *ngIf="perfil._id != profile._id" >
+          <ion-button color="primary" *ngIf="!this.perfil._followers.includes(this.profile._id)"  (click)="seguir()">Seguir</ion-button>
+          <ion-button color="success" *ngIf="this.perfil._followers.includes(this.profile._id)"  (click)="noSeguir()">Siguiendo</ion-button>
+        </div>
+        <div *ngIf="perfil._id == profile._id" >
+          <ion-button color="primary" (click)="cerrarSesion()">Cerrar sesión</ion-button>
+        </div>
+      </ion-card-content>
   </ion-card>
 </ion-content>

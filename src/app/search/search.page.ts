@@ -191,8 +191,8 @@ export class SearchPage implements OnInit {
   seguir(user:Usuario) {
     //Modificamos datos
     this.perfil._following.push(user._id);
-    this.usuarios[user._id.valueOf()]._followers.push(this.perfil._id);
     user._followers.push(this.perfil._id);
+    this.usuarios[user._id.valueOf()] = user;
 
     //Guardamos datos
     this.storage.set('userLogged',this.perfil);
@@ -202,8 +202,8 @@ export class SearchPage implements OnInit {
   noSeguir(user:Usuario){
     //Modificamos datos
     this.perfil._following.splice(this.perfil._following.indexOf(user._id),1);
-    this.usuarios[user._id.valueOf()]._followers.splice(user._followers.indexOf(this.perfil._id),1);
     user._followers.splice(user._followers.indexOf(this.perfil._id),1);
+    this.usuarios[user._id.valueOf()] = user;
 
     //Guardamos datos
     this.storage.set('userLogged',this.perfil);

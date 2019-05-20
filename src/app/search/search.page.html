@@ -36,8 +36,8 @@
             @{{this.usuarios[item._author]._username}}
           </p>
           <div *ngIf="item._username">
-            <ion-button color="primary" *ngIf="!item._followers || !item._followers.includes(perfil._id.valueOf())" class="danger"  (click)="seguir(item)">Seguir</ion-button>
-            <ion-button color="success" *ngIf="item._followers && item._followers.includes(perfil._id.valueOf())" class="danger"  (click)="noSeguir(item)">Siguiendo</ion-button>
+            <ion-button color="primary" *ngIf="!item._followers.includes(perfil._id.valueOf())" (click)="seguir(item)">Seguir</ion-button>
+            <ion-button color="success" *ngIf="item._followers.includes(perfil._id.valueOf())" (click)="noSeguir(item)">Siguiendo</ion-button>
           </div>
         </ion-label>
       </ion-item>

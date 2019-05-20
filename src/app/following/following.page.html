@@ -3,7 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Tu red social</ion-title>
+    <ion-title *ngIf="perfil._id == profile._id">Tu red social</ion-title>
+    <ion-title *ngIf="perfil._id != profile._id" >Gente de @{{perfil._username}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -27,12 +28,10 @@
           
         <ion-label>
           <ion-label (click)="verUsuario(item)">{{item._name}}</ion-label>
-          <p (click)="verUsuario(item)">
-            @{{item._username}}
-          </p>
-          <div>
-            <ion-button color="primary" *ngIf="!item._followers || !item._followers.includes(perfil._id.valueOf())" class="danger"  (click)="seguir(item)">Seguir</ion-button>
-            <ion-button color="success" *ngIf="item._followers && item._followers.includes(perfil._id.valueOf())" class="danger"  (click)="noSeguir(item)">Siguiendo</ion-button>
+          <p (click)="verUsuario(item)">@{{item._username}}</p>
+          <div *ngIf="item._id != profile._id" >
+            <ion-button color="primary" *ngIf="!item._followers.includes(perfil._id.valueOf())"  (click)="seguir(item)">Seguir</ion-button>
+            <ion-button color="success" *ngIf="item._followers.includes(perfil._id.valueOf())" (click)="noSeguir(item)">Siguiendo</ion-button>
           </div>
         </ion-label>
       </ion-item>
