@@ -3,7 +3,6 @@ import { Usuario } from '../usuario';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FormControl } from '@angular/forms';
-import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 //import { RouterExtensions } from "nativescript-angular/router";
@@ -24,6 +23,7 @@ export class SearchPage implements OnInit {
   phSearchBar: string = 'Buscar ';
   recetas: Receta[] = [];
   usuarios: Usuario[] = [];
+  perfil: Usuario;
 
 
   updateSearchbarText() {
@@ -61,7 +61,9 @@ export class SearchPage implements OnInit {
     
     this.inicializarRecetasAleatorios();
     this.inicializarUsuariosAleatorios();
-    
+    //Obtenemos el perfil logueado
+    this.storage.get('userLogged').then(u=>this.perfil=u);
+
     this.searchControl = new FormControl();
     this.ionViewDidLoad();
   }
@@ -85,9 +87,9 @@ export class SearchPage implements OnInit {
       //alert("Buscando: " + search)
       if(document.getElementById('usuarios-button').classList.contains("active"))
       {
-        this.allItems = this.usuarios.filter( (elem) => { return elem._username.toLowerCase().indexOf(search) >= 0 } );
+        this.allItems = this.usuarios.filter( (elem) => { return elem._username.toLowerCase().indexOf(search) >= 0 && elem._id!=this.perfil._id } );
       }else{
-        this.allItems = this.recetas.filter( (elem) => { return elem._name.toLowerCase().indexOf(search) >= 0 } ); 
+        this.allItems = this.recetas.filter( (elem) => { return elem._name.toLowerCase().indexOf(search) >= 0 && elem._id!=this.perfil._id } ); 
       //PARA FILTRAR TAMBIEN DESCRIPCIONES|| elem._description.toLowerCase().indexOf(search) >= 0*/ } );
       }
 
@@ -121,6 +123,7 @@ export class SearchPage implements OnInit {
       this.recetas = reces;
     })
   }
+
 
 
   ngOnInit() {
@@ -185,4 +188,25 @@ export class SearchPage implements OnInit {
       this.storage.set('receta',rec).then(()=>{alert('Hay que ir a "mireceta"...');this.router.navigate(['mireceta'])})
   }
 
+  seguir(user:Usuario) {
+    //Modificamos datos
+    this.perfil._following.push(user._id);
+    this.usuarios[user._id.valueOf()]._followers.push(this.perfil._id);
+    user._followers.push(this.perfil._id);
+
+    //Guardamos datos
+    this.storage.set('userLogged',this.perfil);
+    this.storage.set('usuarios',this.usuarios);
+  }
+
+  noSeguir(user:Usuario){
+    //Modificamos datos
+    this.perfil._following.splice(this.perfil._following.indexOf(user._id),1);
+    this.usuarios[user._id.valueOf()]._followers.splice(user._followers.indexOf(this.perfil._id),1);
+    user._followers.splice(user._followers.indexOf(this.perfil._id),1);
+
+    //Guardamos datos
+    this.storage.set('userLogged',this.perfil);
+    this.storage.set('usuarios',this.usuarios);
+  }
 }

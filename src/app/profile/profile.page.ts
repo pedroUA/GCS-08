@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
 })
 export class ProfilePage implements OnInit {
-  autor: Usuario;
+  perfil: Usuario;
   profile: Usuario;
   recetas: Receta[];
 
@@ -25,7 +25,7 @@ export class ProfilePage implements OnInit {
       this.profile = usuario;
 
     }).then(()=> //Usuario logueado o perfil?
-      this.storage.get('usuario').then((user:Usuario) => this.autor = user || this.profile )
+      this.storage.get('usuario').then((user:Usuario) => this.perfil = user || this.profile )
 
     //Eliminamos el usuario parametrizado si había
     ).then(()=>this.storage.remove('usuario'));
@@ -33,12 +33,21 @@ export class ProfilePage implements OnInit {
   }
 
   cuantasRecetas() {
-    return this.recetas.filter(elem => { return elem._author == this.autor._id }).length
+    return this.recetas.filter(elem => { return elem._author == this.perfil._id }).length
   }
 
   verRecetas(){
-    this.storage.set('autor',this.autor)
+    this.storage.set('autor',this.perfil)
     this.route.navigate(['mireceta'])
+  }
+
+  verSeguidores(){
+    this.storage.set('verSeguidos',false)
+    this.route.navigate(['following'])
+  }
+  verSeguidos(){
+    this.storage.set('verSeguidos',true)
+    this.route.navigate(['following'])
   }
 
   cerrarSesion() {
