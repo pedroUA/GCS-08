@@ -57,6 +57,7 @@ describe('AppComponent', () => {
     expect(menuItems[4].textContent).toContain('Insert data');
     expect(menuItems[5].textContent).toContain('Profile');
     expect(menuItems[6].textContent).toContain('Search');
+    expect(menuItems[7].textContent).toContain('Following');
   });
 
   it('should have urls', async () => {
@@ -72,6 +73,7 @@ describe('AppComponent', () => {
     expect(menuItems[4].getAttribute('ng-reflect-router-link')).toEqual('/data-insert');
     expect(menuItems[5].getAttribute('ng-reflect-router-link')).toEqual('/profile');
     expect(menuItems[6].getAttribute('ng-reflect-router-link')).toEqual('/search');
+    expect(menuItems[7].getAttribute('ng-reflect-router-link')).toEqual('/following');
   });
 
 });

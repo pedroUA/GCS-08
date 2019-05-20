@@ -62,9 +62,13 @@ export class AppComponent {
       //icon: 'list'
     },
     {
-      title: 'Search',
+      title: 'Buscar',
       url: '/search',
       //icon: 'list'
+    },
+    {
+      title: 'Following',
+      url: '/following'
     },
   ];
 

@@ -3,7 +3,6 @@ import { Usuario } from '../usuario';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { FormControl } from '@angular/forms';
-import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 //import { RouterExtensions } from "nativescript-angular/router";

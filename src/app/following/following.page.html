@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Tu red social</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="text-align: center">  
+  <div style="display: flex; width: 100%;">
+    <div id="seguidores-button" class="button active" (click)="changeClassActive('recetas-button')">Seguidores</div>
+    <div id="seguidos-button" class="button" (click)="changeClassActive('usuarios-button')">Siguiendo</div>
+  </div>
+  <ion-searchbar debounce="800" (ionInput)="searching=true;" (ionChange)="setFilteredItems()" style="z-index:99;" id="search-bar" [placeholder]="phSearchBar" (ionInput)="startSearching()" [(ngModel)]="searchTerm"></ion-searchbar>
+  
+  <div style="z-index: 91; width:100%; height: 100%; position: fixed; overflow-y: hidden;" *ngIf="searching" class="spinner-container">
+      <ion-spinner style="width: 20%; height: 20%; position: fixed; top: 40%; left: 40%;"></ion-spinner>
+      <div style="background-color: rgba(0,0,0,0.6); overflow-y: hidden; height: 100%; width: 100%; position:fixed; top:0; left:0;"></div>
+  </div>
+
+  <ion-list lines="none" style="width:100%; align-self: center;">
+    <ion-item *ngFor="let item of items" style="width: 90%; left: 5%;">
+        <ion-thumbnail slot="start" (click)="ver(item)">
+          <img style="width: 50px; height: 50px" [src]="item._imageURL">
+        </ion-thumbnail>
+          
+        <ion-label>
+          <ion-label (click)="ver(item)">{{item._name}}</ion-label>
+          <!--Es un usuario-->
+          <p *ngIf="item._username" (click)="verUsuario(item)">
+            @{{item._username}}
+          </p>
+          <!--Es una receta-->
+          <p *ngIf="!item._username" (click)="verUsuario(this.usuarios[item._author])" >
+            @{{this.usuarios[item._author]._username}}
+          </p>
+        </ion-label>
+      </ion-item>
+  </ion-list>
+  <!-- Si se llenan los resultados dejad de mostrar -->
+  <ion-infinite-scroll *ngIf="!(items.length >= allItems.length)" threshold="0px" (ionInfinite)="addItems(20)">
+      <ion-infinite-scroll-content loadingSpinner="crescent"></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+</ion-content>

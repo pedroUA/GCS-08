@@ -3,8 +3,8 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="this.perfil._id == this.autor._id" >Mis recetas</ion-title>
-    <ion-title *ngIf="this.perfil._id != this.autor._id" >Recetas de @{{this.autor._username}}</ion-title>
+    <ion-title *ngIf="perfil._id == autor._id" >Mis recetas</ion-title>
+    <ion-title *ngIf="perfil._id != autor._id" >Recetas de @{{autor._username}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,8 +12,8 @@
   <div *ngIf="misRecetas.length == 0">
       <div class="container text-center mb-5 mt-5">
           <div class="alert alert-warning">
-              <strong *ngIf="this.perfil._id == this.autor._id" >¡No tienes recetas!</strong>
-              <strong *ngIf="this.perfil._id != this.autor._id">¡@{{this.autor._username}} no tiene recetas!</strong>
+              <strong *ngIf="perfil._id == autor._id" >¡No tienes recetas!</strong>
+              <strong *ngIf="perfil._id != autor._id">¡@{{autor._username}} no tiene recetas!</strong>
           </div>
       </div>
   </div>
