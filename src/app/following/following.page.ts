@@ -23,14 +23,14 @@ export class FollowingPage implements OnInit {
 
 
   updateSearchbarText() {
-    let recetasButtonActive = document.getElementById('seguidores-button').classList.contains("active")
-    let usuariosButtonActive = document.getElementById('seguidos-button').classList.contains("active")
+    let seguidoresButtonActive = document.getElementById('seguidores-button').classList.contains("active")
+    let seguidosButtonActive = document.getElementById('seguidos-button').classList.contains("active")
 
-    if(!recetasButtonActive && !usuariosButtonActive){
+    if(!seguidoresButtonActive && !seguidosButtonActive){
       this.phSearchBar = 'Elige que buscar...'
       
     }else{
-      if(recetasButtonActive)
+      if(seguidoresButtonActive)
       {
         this.phSearchBar = 'Buscar entre seguidores...';
       }else{
@@ -50,24 +50,25 @@ export class FollowingPage implements OnInit {
     }
  }
 
-  constructor(private storage: Storage, private router: Router,) {
-
-    this.getStorage();
-    
+  constructor(private storage: Storage, private router: Router,) {    
     this.ionViewDidLoad();
+    this.getStorage();
   }
   
   getStorage = async()=>{
-    await this.storage.get('userLogged').then( user => this.perfil = user );
-    await this.storage.get('usuarios').then( users => this.usuarios = users );
-    this.seguidores = this.usuarios.filter( elem => this.perfil._followers.includes(elem._id));
-    this.seguidos = this.usuarios.filter( elem => this.perfil._following.includes(elem._id));
+    this.storage.get('userLogged').then( user => this.perfil = user ).then(()=>
+      this.storage.get('usuarios').then( users => this.usuarios = users ).then(()=>{
+        this.seguidores = this.usuarios.filter( elem => this.perfil._followers.includes(elem._id));
+        this.seguidos = this.usuarios.filter( elem => this.perfil._following.includes(elem._id));
+      }).then(()=>
+        this.storage.get('verSeguidos').then( ver => { if(ver) this.changeClassActive('seguidos-button') })
+        .then(()=>this.setFilteredItems())
+    ))
   }
 
   startSearching(){this.searching = true;}
 
   ionViewDidLoad() {
-    this.setFilteredItems();
   }
    
   alerta = (elem) => alert(JSON.stringify(elem));
@@ -78,10 +79,8 @@ export class FollowingPage implements OnInit {
     this.items = [];
     this.allItems = [];
 
-    //alert("Buscando: " + search)
     if(document.getElementById('seguidores-button').classList.contains("active"))
-    {
-      
+    { 
       if(search && search != ''){
         this.allItems = this.seguidores.filter( (elem) => { return elem._username.toLowerCase().indexOf(search) >= 0 } );
       }else{ this.allItems = this.seguidores; }
@@ -118,6 +117,7 @@ export class FollowingPage implements OnInit {
   }
 
 
+
   addItems(count){
     
     //Pausa ficticia de descarga de datos
@@ -132,9 +132,33 @@ export class FollowingPage implements OnInit {
 
   }
 
+
   verUsuario(user:Usuario){
     //Tras guardar el usuario a ver en 'usuario' vamos a la pagina 'profile' para mostrarlo
     this.storage.set('usuario',user).then(()=>this.router.navigate(['profile']))
+  }
+
+  seguir(user:Usuario) {
+    //Modificamos datos
+    this.perfil._following.push(user._id);
+    this.usuarios[user._id.valueOf()]._followers.push(this.perfil._id);
+    user._followers.push(this.perfil._id);
+
+    //Guardamos datos
+    this.storage.set('userLogged',this.perfil);
+    this.storage.set('usuarios',this.usuarios);
+  }
+
+  noSeguir(user:Usuario){
+    //Modificamos datos
+    this.perfil._following.splice(this.perfil._following.indexOf(user._id),1);
+    this.usuarios[user._id.valueOf()]._followers.splice(user._followers.indexOf(this.perfil._id),1);
+    user._followers.splice(user._followers.indexOf(this.perfil._id),1);
+
+    //Guardamos datos
+    this.storage.set('userLogged',this.perfil);
+    this.storage.set('usuarios',this.usuarios);
+    this.allItems.splice(this.allItems.indexOf(user),1);
   }
 
 }
