@@ -22,7 +22,7 @@
         </ion-card-content>
         -->
         <ion-card-content>
-            <ion-card-subtitle><strong>Descripcion: </strong>{{ receta._description }}</ion-card-subtitle>
+            <ion-card-subtitle><strong>Elaboración: </strong>{{ receta._description }}</ion-card-subtitle>
             <hr>
             <ion-card-subtitle><strong>Ingredientes: </strong>{{ receta._ingredientes }}</ion-card-subtitle>
             <hr>
@@ -34,10 +34,74 @@
             <hr>
             <ion-card-subtitle><strong>Kcal Totales: </strong>{{ receta._kcals }}</ion-card-subtitle>
         </ion-card-content>
-          
       </ion-card>  
-  
-           
 
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <h5 class="page-header">Comentarios</h5>
+              <form action="#" method="post">
+                <textarea placeholder="Añada su comentario aqui..." name="comments"></textarea>
+                <div>
+                  <button type="submit">Comentar</button>
+                </div>
+              </form>
+              <br>
+              <section class="comment-list">
+                <!-- First Comment -->
+                <article class="row">
+                  <div class="col-md-2 col-sm-2 hidden-xs">
+                    <figure class="thumbnail">
+                      <img class="img-responsive" width=40% height=40% src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+                      <figcaption class="text-center">Anita González</figcaption>
+                    </figure>
+                  </div>
+                  <div class="col-md-10 col-sm-10">
+                    <div class="panel panel-default arrow left">
+                      <div class="panel-body">
+                        <header class="text-left">
+                          <div class="comment-user"><i class="fa fa-user"></i> @anita5</div>
+                          <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> 16 Dec, 2014</time>
+                        </header>
+                        <div class="comment-post">
+                          <p>
+                            Maravillosa receta. ¡De lo mejor que he probado nunca!
+                          </p>
+                        </div>
+                        <p class="text-right"><button><i class="fa fa-reply"></i> Responder</button></p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <!-- Second Comment Reply -->
+                <article class="row">
+                  <div class="col-md-2 col-sm-2 col-md-offset-1 col-sm-offset-0 hidden-xs">
+                    <figure class="thumbnail">
+                      <img class="img-responsive" width=40% height=40% src="http://www.tangoflooring.ca/wp-content/uploads/2015/07/user-avatar-placeholder.png" />
+                      <figcaption class="text-center">José Ramírez</figcaption>
+                    </figure>
+                  </div>
+                  <div class="col-md-9 col-sm-9">
+                    <div class="panel panel-default arrow left">
+                      <div class="panel-body">
+                        <header class="text-left">
+                          <div class="comment-user"><i class="fa fa-user"></i> @josechulo8</div>
+                          <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> 16 Dec, 2014</time>
+                        </header>
+                        <div class="comment-post">
+                          <p>
+                            ¡Gracias! No conocia esta receta.
+                          </p>
+                        </div>
+                        <p class="text-right"><button><i class="fa fa-reply"></i> Responder</button></p>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </section>
+          </div>
+        </div>
+      </div>
+      
 </ion-content>
         

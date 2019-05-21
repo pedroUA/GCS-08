@@ -32,7 +32,6 @@ export class MirecetaPage implements OnInit {
           //Recibimos solo las que creamos nosotros
           this.misRecetas = todas.filter( una => { return una._author ==  this.autor._id})
           console.log(this.misRecetas)
-          alert(JSON.stringify(this.autor))
           this.storage.remove('autor')
         })  
       )
@@ -55,7 +54,6 @@ export class MirecetaPage implements OnInit {
   }
 
   verReceta(receta:Receta){
-    alert("rece: " + JSON.stringify(receta))
     
     this.storage.set('receta',receta).then(() => {
 

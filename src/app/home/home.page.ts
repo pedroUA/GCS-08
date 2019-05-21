@@ -142,17 +142,17 @@ export class HomePage {
 
   }
 
-  ver(item){
-    if(item._username){
-      this.verUsuario(item);
-    }else{
-      this.verReceta(item);
-    }
+  ver(receta:Receta){
+    
+    this.storage.set('receta',receta).then(() => {
+
+      this.router.navigate(['ver-receta']).catch(err=>alert("AJ COÑO:"+err))
+
+    }).catch(err=>alert(err))
   }
 
   verUsuario(user){
     this.storage.set('verUsuario',user)
-    alert("Ver usuario " + user._username)
     
     
     this.router.navigateByUrl('/profile/'+user._id);
@@ -164,7 +164,6 @@ export class HomePage {
       return;
 
     this.storage.set('verReceta',rec);
-    alert("Ver receta " + rec._name)
   }
 
 }
