@@ -1,10 +1,12 @@
+import { AppComponent } from './../app.component';
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
 import { Receta } from '../receta';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NavController, MenuController } from '@ionic/angular';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { destroyView } from '@angular/core/src/view/view';
 
 @Component({
   selector: 'app-profile',
@@ -17,7 +19,11 @@ export class ProfilePage implements OnInit {
   recetas: Receta[];
   usuarios: Usuario[];
 
-  constructor(private storage:Storage, private route:Router, public navCtrl: NavController, private menuCtrl: MenuController) {
+  constructor(private storage:Storage, 
+    private route:Router, 
+    public navCtrl: NavController, 
+    private menuCtrl: MenuController,
+    private aRoute:ActivatedRoute,) {
     this.load();
     this.menuCtrl.close();
   }
@@ -28,33 +34,21 @@ export class ProfilePage implements OnInit {
   }
 
   verRecetas(){
-    this.storage.set('autor',this.perfil)
-    this.route.navigate(['mireceta'])
-    this.route.ngOnDestroy();
+    this.route.navigate(['mireceta/'+this.perfil._id])
   }
 
   verSeguidores(){
     this.storage.set('verSeguidos',false)
-    
-    if(this.perfil._id != this.profile._id)
-      this.storage.set('usuario',this.perfil);
-
-    this.route.navigate(['following'])
+    this.route.navigate(['following/'+this.perfil._id])
   }
   verSeguidos(){
     this.storage.set('verSeguidos',true)
-    
-    if(this.perfil._id != this.profile._id)
-      this.storage.set('usuario',this.perfil);
-
-    this.route.navigate(['following'])
-    this.route.ngOnDestroy();
+    this.route.navigate(['following/'+this.perfil._id])
   }
 
+
   cerrarSesion() {
-    this.storage.remove('userLogged');
-    this.route.navigate(['login']);
-    this.route.ngOnDestroy();
+    this.storage.remove('userLogged').then(()=>this.route.navigate(['login']))
   }
 
   
@@ -85,6 +79,7 @@ export class ProfilePage implements OnInit {
   }
 
   load(){
+//    var id = Number.isNaN(Number(this ? Number(this.aRoute.snapshot.paramMap.get('id')) : -1 ;
     //Obtenemos recetas
     this.storage.get('recetas').then(rec=>this.recetas=rec)
     this.storage.get('usuarios').then(users=>this.usuarios=users)
@@ -92,7 +87,7 @@ export class ProfilePage implements OnInit {
     //Si se introduce un usuario en el Storage es el que se verá
     this.storage.get('userLogged').then(usuario => this.profile = usuario)
     .then(()=> //Usuario logueado o perfil?
-      this.storage.get('usuario').then((user:Usuario) => this.perfil = user || this.profile )
+      this.storage.get('usuarios').then((users:Usuario) => this.perfil = users[this.aRoute.snapshot.paramMap.get('id')] || this.profile )
       //Eliminamos el usuario parametrizado si había
       .then(()=>this.storage.remove('usuario'))
     )

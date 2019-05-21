@@ -179,13 +179,12 @@ export class SearchPage implements OnInit {
 
   verUsuario(user:Usuario){
     //Tras guardar el usuario a ver en 'usuario' vamos a la pagina 'profile' para mostrarlo
-    this.storage.set('usuario',user).then(()=>this.router.navigate(['profile']))
+    this.router.navigate(['profile/'+user._id])
   }
 
   verReceta(rec:Receta){
     //Tras guardar la receta a ver en 'receta' vamos a la pagina 'mireceta' para mostrarla
-    if(!this.storage.get('usuario'))
-      this.storage.set('receta',rec).then(()=>{alert('Hay que ir a "mireceta"...');this.router.navigate(['mireceta'])})
+    this.router.navigate(['ver-receta/'+rec._id])
   }
 
   seguir(user:Usuario) {

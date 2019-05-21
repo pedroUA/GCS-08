@@ -3,7 +3,7 @@ import { Receta } from './receta';
 import { Calorias } from './calorias';
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, NavController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { Storage } from '@ionic/storage';
@@ -68,13 +68,14 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private storage: Storage,
-    private route: Router
+    private route: Router,
+    private navCtrl: NavController
   ) {
     this.initializeApp();
   }
 
   nav(page:string){    
-    this.route.navigate([page]);
+    this.storage.get('userLogged').then( (user:Usuario) => this.route.navigate([page+user._id]));
   }
   initializeApp() {
     this.platform.ready().then(() => {
