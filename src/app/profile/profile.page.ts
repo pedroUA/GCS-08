@@ -39,23 +39,16 @@ export class ProfilePage implements OnInit {
 
   verSeguidores(){
     this.storage.set('verSeguidos',false)
-
-//    location.replace('following');
     this.route.navigate(['following/'+this.perfil._id])
   }
   verSeguidos(){
     this.storage.set('verSeguidos',true)
-      
     this.route.navigate(['following/'+this.perfil._id])
-//    location.replace('following');
-    this.route.ngOnDestroy();
   }
 
 
   cerrarSesion() {
-    this.storage.remove('userLogged');
-    this.route.navigate(['login']);
-    location.replace('');
+    this.storage.remove('userLogged').then(()=>this.route.navigate(['login']))
   }
 
   
