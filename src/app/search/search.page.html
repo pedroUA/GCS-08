@@ -37,7 +37,7 @@
           </p>
           <div *ngIf="item._username">
             <ion-button color="primary" *ngIf="!item._followers.includes(perfil._id.valueOf())" (click)="seguir(item)">Seguir</ion-button>
-            <ion-button color="success" *ngIf="item._followers.includes(perfil._id.valueOf())" (click)="noSeguir(item)">Siguiendo</ion-button>
+            <button class="btn btn-info" *ngIf="item._followers.includes(perfil._id.valueOf())" (click)="noSeguir(item)">Siguiendo</button>
           </div>
         </ion-label>
       </ion-item>

@@ -12,6 +12,7 @@
         <img height="150px" src="{{ receta._imageURL }}">
         <ion-card-header>
             <ion-card-title role="heading"><b>{{ receta._name }}</b></ion-card-title>
+            <ion-card-subtitle (click)="verUsuario(usuarios[receta._author.valueOf()])">@{{usuarios[receta._author.valueOf()]._username}}</ion-card-subtitle>
           <hr><!--
             <ion-card-subtitle class="ios hydrated" role="heading" aria-level="3">{{receta._ingredientes}}</ion-card-subtitle>
           -->
@@ -22,9 +23,9 @@
         </ion-card-content>
         -->
         <ion-card-content>
-            <ion-card-subtitle><strong>Elaboración: </strong>{{ receta._description }}</ion-card-subtitle>
-            <hr>
             <ion-card-subtitle><strong>Ingredientes: </strong>{{ receta._ingredientes }}</ion-card-subtitle>
+            <hr>
+            <ion-card-subtitle><strong>Elaboración: </strong>{{ receta._description }}</ion-card-subtitle>
             <hr>
             <ion-card-subtitle><strong>Proteina: </strong>{{ receta._protein }}</ion-card-subtitle>
             <hr>

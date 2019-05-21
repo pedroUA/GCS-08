@@ -80,8 +80,8 @@ export class RegistroPage implements OnInit {
 
         if(existe == false) {
           var newUser:Usuario = {
-            _id: this.usuarios.length,
-            _name: this.username,
+            _id: Number(this.usuarios.length),
+            _name: this.name + ' ' + this.apellidos,
             _username: this.username,
             _password: this.password,
             _email: this.email,
