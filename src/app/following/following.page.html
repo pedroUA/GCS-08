@@ -21,6 +21,14 @@
   </div>
 
   <ion-list lines="none" style="width:100%; align-self: center;">
+    <div *ngIf="!items || items.length == 0">
+      <div class="container text-center mb-5 mt-5">
+          <div class="alert alert-warning">
+              <strong *ngIf="!searchTerm" >No tienes {{ verTipo() }}</strong>
+              <strong *ngIf="searchTerm">No se encontraron usuarios</strong>
+          </div>
+      </div>
+    </div>
     <ion-item *ngFor="let item of items" style="width: 90%; left: 5%;">
         <ion-thumbnail slot="start" (click)="verUsuario(item)">
           <img style="width: 50px; height: 50px" [src]="item._imageURL">

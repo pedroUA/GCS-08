@@ -208,4 +208,10 @@ export class SearchPage implements OnInit {
     this.storage.set('userLogged',this.perfil);
     this.storage.set('usuarios',this.usuarios);
   }
+
+  
+  verTipo():string{
+    return document.getElementById('recetas-button').classList.contains("active") ? 'recetas' : 'usuarios';
+  }
+
 }
