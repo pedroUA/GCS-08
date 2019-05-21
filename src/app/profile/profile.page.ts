@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
 import { Receta } from '../receta';
 import { Router, ActivatedRoute } from '@angular/router';
-import { NavController, MenuController } from '@ionic/angular';
+import { NavController, MenuController, NavParams, AlertController } from '@ionic/angular';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { destroyView } from '@angular/core/src/view/view';
 
@@ -13,7 +13,7 @@ import { destroyView } from '@angular/core/src/view/view';
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfilePage {
   perfil: Usuario;
   profile: Usuario;
   recetas: Receta[];
@@ -21,14 +21,18 @@ export class ProfilePage implements OnInit {
 
   constructor(private storage:Storage, 
     private route:Router, 
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
+    //public params: NavParams, 
     private menuCtrl: MenuController,
-    private aRoute:ActivatedRoute,) {
-    this.load();
-    this.menuCtrl.close();
+    private aRoute:ActivatedRoute,
+    public alertController: AlertController) {
+      this.menuCtrl.close();
   }
 
-
+  ionViewDidEnter() {
+    this.load();
+  }
+  
   cuantasRecetas() {
     return this.recetas.filter(elem => { return elem._author == this.perfil._id }).length
   }
@@ -72,10 +76,6 @@ export class ProfilePage implements OnInit {
     //Guardamos datos
     this.storage.set('userLogged',this.profile);
     this.storage.set('usuarios',this.usuarios);
-  }
-
-  ngOnInit() {
-
   }
 
   load(){

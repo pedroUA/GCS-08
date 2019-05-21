@@ -29,7 +29,7 @@ export class FollowingPage implements OnInit {
     let seguidosButtonActive = document.getElementById('seguidos-button').classList.contains("active")
 
     if (!seguidoresButtonActive && !seguidosButtonActive) {
-      this.phSearchBar = 'Elige que buscar...'
+      this.phSearchBar = 'Elige que buscar...';
 
     } else {
       if (seguidoresButtonActive) {
@@ -40,22 +40,31 @@ export class FollowingPage implements OnInit {
     }
     this.setFilteredItems();
   }
+  verTipo(){
+    return document.getElementById('seguidores-button').classList.contains("active") ? 'seguidores' : 'seguidos';
+  }
 
   changeClassActive(item) {
     if (!document.getElementById(item).classList.contains("active")) {
-      document.getElementById('seguidores-button').classList.toggle("active")
-      document.getElementById('seguidos-button').classList.toggle("active")
+      document.getElementById('seguidores-button').classList.toggle("active");
+      document.getElementById('seguidos-button').classList.toggle("active");
 
       this.updateSearchbarText();
     }
   }
 
-  constructor(private storage: Storage, private router: Router, private aRouter: ActivatedRoute) {
-    this.ionViewDidLoad();
-    this.getStorage();
+  constructor(private storage: Storage, 
+    private router: Router,
+    private aRouter: ActivatedRoute, 
+    public navCtrl:NavController) {
   }
 
-  getStorage(){
+  ionViewDidEnter(){
+    
+   this.load();
+  }
+
+  load(){
     this.storage.get('userLogged')
     .then( (user:Usuario) => this.profile = user)
     .then(() => this.storage.get('usuarios')
@@ -72,8 +81,6 @@ export class FollowingPage implements OnInit {
 
   startSearching() { this.searching = true; }
 
-  ionViewDidLoad() {
-  }
 
   setFilteredItems() {
     var search = this.searchTerm.toLowerCase();
