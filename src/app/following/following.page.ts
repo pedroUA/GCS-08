@@ -1,7 +1,8 @@
 import { Storage } from '@ionic/storage';
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../usuario';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-following',
@@ -49,21 +50,24 @@ export class FollowingPage implements OnInit {
     }
   }
 
-  constructor(private storage: Storage, private router: Router, ) {
+  constructor(private storage: Storage, private router: Router, private aRouter: ActivatedRoute) {
     this.ionViewDidLoad();
     this.getStorage();
   }
 
   getStorage(){
-    this.storage.get('userLogged').then(user => this.profile = user).then(() => 
-      this.storage.get('usuario').then(perfil => this.perfil = perfil || this.profile).then(()=>
-      this.storage.get('usuarios').then(users => this.usuarios = users).then(() => {
+    this.storage.get('userLogged')
+    .then( (user:Usuario) => this.profile = user)
+    .then(() => this.storage.get('usuarios')
+      .then(users => { this.usuarios = users; this.perfil=users[this.aRouter.snapshot.paramMap.get('id')] ||this.profile })
+      .then(() => {
         this.seguidores = this.usuarios.filter(elem => this.perfil._followers.includes(elem._id));
         this.seguidos = this.usuarios.filter(elem => this.perfil._following.includes(elem._id));
-      }).then(() =>{
-        this.storage.get('verSeguidos').then(ver => { if (ver){this.changeClassActive('seguidos-button')} })
-          .then(() => this.setFilteredItems())
-    })).then(()=>this.storage.remove('usuario')))
+      }).then(() =>
+        this.storage.get('verSeguidos')
+        .then(ver => { if (ver){this.changeClassActive('seguidos-button')} })
+        .then(() => this.setFilteredItems())
+      ))
   }
 
   startSearching() { this.searching = true; }
@@ -131,11 +135,7 @@ export class FollowingPage implements OnInit {
 
   verUsuario(user: Usuario) {
     //Tras guardar el usuario a ver en 'usuario' vamos a la pagina 'profile' para mostrarlo
-    if(user._id != this.profile._id){
-      this.storage.set('usuario', user).then(() => this.router.navigate(['profile']));
-    }else{
-      this.storage.remove('usuario').then(()=>this.router.navigate(['profile']))
-    } 
+    this.router.navigate(['profile/'+user._id]);
   }
 
   seguir(user: Usuario) {

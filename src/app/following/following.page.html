@@ -30,8 +30,8 @@
           <ion-label (click)="verUsuario(item)">{{item._name}}</ion-label>
           <p (click)="verUsuario(item)">@{{item._username}}</p>
           <div *ngIf="item._id != profile._id" >
-            <ion-button color="primary" *ngIf="!item._followers.includes(perfil._id.valueOf())"  (click)="seguir(item)">Seguir</ion-button>
-            <ion-button color="success" *ngIf="item._followers.includes(perfil._id.valueOf())" (click)="noSeguir(item)">Siguiendo</ion-button>
+            <ion-button color="primary" *ngIf="!perfil._following.includes(item._id.valueOf())"  (click)="seguir(item)">Seguir</ion-button>
+            <button class="btn btn-info" *ngIf="perfil._following.includes(item._id.valueOf())" (click)="noSeguir(item)">Siguiendo</button>
           </div>
         </ion-label>
       </ion-item>
