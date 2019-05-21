@@ -21,10 +21,10 @@
                   </ion-thumbnail>
                     
                   <ion-label class="sc-ion-label-ios-h sc-ion-label-ios-s ios hydrated">
-                      <h3>{{ receta._name}}</h3>
-                      <p>{{receta._description}}</p>
-                      <p *ngIf="usuarios[receta._author]" style="color:red" (click)="verUsuario(receta)">
-                          {{usuarios[receta._author]._username}}
+                      <h3><strong>{{ receta._name}}</strong></h3>
+                      <p style="color:black;">{{receta._description}}</p>
+                      <p *ngIf="usuarios[receta._author]" style="color:var(ion-color-primary)" (click)="verUsuario(receta)">
+                          @{{usuarios[receta._author]._username}}
                       </p>
                   </ion-label>
                 </ion-item>
