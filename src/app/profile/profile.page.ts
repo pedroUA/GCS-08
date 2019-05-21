@@ -61,6 +61,7 @@ export class ProfilePage {
     this.profile._following.push(this.perfil._id);
     this.perfil._followers.push(this.profile._id);
     this.usuarios[this.perfil._id.valueOf()]=this.perfil;
+    this.usuarios[this.profile._id.valueOf()]=this.profile;
 
     //Guardamos datos
     this.storage.set('userLogged',this.profile);
@@ -72,6 +73,7 @@ export class ProfilePage {
     this.profile._following.splice(this.profile._following.indexOf(this.perfil._id),1);
     this.perfil._followers.splice(this.perfil._followers.indexOf(this.profile._id),1);
     this.usuarios[this.perfil._id.valueOf()] = this.perfil;
+    this.usuarios[this.profile._id.valueOf()] = this.profile;
 
     //Guardamos datos
     this.storage.set('userLogged',this.profile);

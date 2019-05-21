@@ -59,24 +59,30 @@ export class FollowingPage implements OnInit {
     public navCtrl:NavController) {
   }
 
+
+
   ionViewDidEnter(){
+    this.storage.get('verSeguidos')
+    .then(ver => { if (ver){this.changeClassActive('seguidos-button')} }).then(()=>this.load())
+  }
+  ionViewWillUnload(){
     
-   this.load();
+  }
+  ionViewDidLoad(){
   }
 
   load(){
+    this.profile = this.perfil = null;
+    this.seguidores = this.seguidos = this.allItems = this.items = [];
     this.storage.get('userLogged')
     .then( (user:Usuario) => this.profile = user)
     .then(() => this.storage.get('usuarios')
-      .then(users => { this.usuarios = users; this.perfil=users[this.aRouter.snapshot.paramMap.get('id')] ||this.profile })
+      .then(users => { this.usuarios = users; this.perfil=users[this.aRouter.snapshot.paramMap.get('id')]})
       .then(() => {
+        this.perfil = this.perfil || this.profile;
         this.seguidores = this.usuarios.filter(elem => this.perfil._followers.includes(elem._id));
         this.seguidos = this.usuarios.filter(elem => this.perfil._following.includes(elem._id));
-      }).then(() =>
-        this.storage.get('verSeguidos')
-        .then(ver => { if (ver){this.changeClassActive('seguidos-button')} })
-        .then(() => this.setFilteredItems())
-      ))
+      }).then(()=>this.setFilteredItems()))
   }
 
   startSearching() { this.searching = true; }
@@ -147,25 +153,26 @@ export class FollowingPage implements OnInit {
 
   seguir(user: Usuario) {
     //Modificamos datos
-    this.perfil._following.push(user._id);
-    this.usuarios[user._id.valueOf()]._followers.push(this.perfil._id);
-    user._followers.push(this.perfil._id);
+    this.profile._following.push(user._id);
+    user._followers.push(this.profile._id);
+    this.usuarios[user._id.valueOf()] = user;
+    this.usuarios[this.profile._id.valueOf()] = this.profile;
     this.seguidos.push(user);
 
     //Guardamos datos
-    this.storage.set('userLogged', this.perfil);
+    this.storage.set('userLogged', this.profile);
     this.storage.set('usuarios', this.usuarios);
   }
 
   noSeguir(user: Usuario) {
     //Modificamos datos
-    this.perfil._following.splice(this.perfil._following.indexOf(user._id), 1);
-    this.seguidos.splice(this.seguidos.indexOf(user), 1);
-    user._followers.splice(user._followers.indexOf(this.perfil._id), 1);
+    this.profile._following.splice(this.profile._following.indexOf(user._id), 1);
+    user._followers.splice(user._followers.indexOf(this.profile._id), 1);
     this.usuarios[user._id.valueOf()] = user;
-
-    //Guardamos datos
-    this.storage.set('userLogged', this.perfil);
+    this.usuarios[this.profile._id.valueOf()] = this.profile;
+-
+    
+    this.storage.set('userLogged', this.profile);
     this.storage.set('usuarios', this.usuarios);
   }
 
