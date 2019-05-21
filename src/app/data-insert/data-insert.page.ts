@@ -3,6 +3,7 @@ import { Storage } from '@ionic/storage';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 import { Calorias } from '../calorias';
 
 @Component({
@@ -19,7 +20,7 @@ export class DataInsertPage implements OnInit {
   pesos:number[];
   calorico:Calorias[];
 
-  constructor(private storage: Storage, public navCtrl: NavController, private router: Router, public fb: FormBuilder) {
+  constructor(private storage: Storage, public navCtrl: NavController, private router: Router, public fb: FormBuilder, public alertController: AlertController) {
       this.storage.get('pesos').then( (result:number[]) => this.pesos = result );
       this.storage.get('calorico').then( (result:Calorias[]) => this.calorico = result );
   }
@@ -33,7 +34,7 @@ export class DataInsertPage implements OnInit {
     this.formcalorico = this.fb.group({
       grasas: ['', [Validators.required, Validators.min(0), Validators.max(10000)]],
       hidratos: ['', [Validators.required, Validators.min(0), Validators.max(10000)]],
-      proteinas: ['', [Validators.required, Validators.min(0), Validators.max(10000)]]
+      proteinas: ['', [Validators.required, Validators.min(0), Validators.max(10000)]],
     });
   }
 
@@ -50,25 +51,98 @@ export class DataInsertPage implements OnInit {
     }
  }
 
+ async presentAlertPeso() {
+  const alert = await this.alertController.create({
+    header: 'Error en el peso',
+    message: 'Introduce un peso válido',
+    buttons: ['OK']
+  });
+
+  await alert.present();
+}
+
+async presentAlertAltura() {
+  const alert = await this.alertController.create({
+    header: 'Error en la altura',
+    message: 'Introduce una altura válida',
+    buttons: ['OK']
+  });
+
+  await alert.present();
+}
+
   guardarPesoDiario() {
     const peso = this.formpeso.get('peso').value;
-    const altura = this.formpeso.get('altura').value;
-    for(let i=0;i<this.pesos.length-1;i++) {
-      this.pesos[i] = this.pesos[i+1]
+    if (this.formpeso.get('peso').valid && this.formpeso.get('altura').valid) {
+      for(let i=0;i<this.pesos.length-1;i++) {
+        this.pesos[i] = this.pesos[i+1];
+      }
+      this.pesos[211] = peso;
+      this.storage.set('pesos', this.pesos).then( () => this.router.navigate(['graphics']) );
+    } else {
+      if (!this.formpeso.get('peso').valid) {
+        this.presentAlertPeso();
+      } else {
+        if(!this.formpeso.get('altura').valid) {
+          this.presentAlertAltura();
+        }
+      }
     }
-    this.pesos[211] = peso;
-    this.storage.set('pesos', this.pesos).then( () => this.router.navigate(['graphics']) );
+  }
+
+  async presentAlertGrasas() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Introduce una cantidad de Kcalorias diaria de grasas válida',
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
+  
+  async presentAlertHidratos() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Introduce una cantidad de Kcalorias diaria de hidratos válida',
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
+
+  async presentAlertProteinas() {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: 'Introduce una cantidad de Kcalorias diaria de proteinas válida',
+      buttons: ['OK']
+    });
+  
+    await alert.present();
   }
 
   guardarCaloricoDiario() {
     const h = this.formcalorico.get('hidratos').value;
     const g = this.formcalorico.get('grasas').value;
     const p = this.formcalorico.get('proteinas').value;
-    const calorias: Calorias = { hidratos: h, proteinas: p, grasas: g };
-    for(let i=0;i<this.calorico.length-1;i++) {
-      this.calorico[i] = this.calorico[i+1]
+    if (this.formcalorico.get('hidratos').valid && this.formcalorico.get('grasas').valid && this.formcalorico.get('proteinas').valid) {
+      const calorias: Calorias = { hidratos: h, proteinas: p, grasas: g };
+      for(let i=0;i<this.calorico.length-1;i++) {
+        this.calorico[i] = this.calorico[i+1];
+      }
+      this.calorico[6] = calorias;
+      this.storage.set('calorico', this.calorico).then( () => this.router.navigate(['graphics']) );
+    } else {
+      if (!this.formcalorico.get('grasas').valid) {
+        this.presentAlertGrasas();
+      } else {
+        if(!this.formcalorico.get('hidratos').valid) {
+          this.presentAlertHidratos();
+        } else {
+          if(!this.formcalorico.get('proteinas').valid) {
+            this.presentAlertProteinas();
+          }
+        }
+      }
     }
-    this.calorico[6] = calorias;
-    this.storage.set('calorico', this.calorico).then( () => this.router.navigate(['graphics']) );
   }
 }
