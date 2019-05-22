@@ -191,6 +191,7 @@ export class SearchPage implements OnInit {
     //Modificamos datos
     this.perfil._following.push(user._id);
     user._followers.push(this.perfil._id);
+    this.usuarios[this.perfil._id.valueOf()] = this.perfil;
     this.usuarios[user._id.valueOf()] = user;
 
     //Guardamos datos
@@ -203,9 +204,16 @@ export class SearchPage implements OnInit {
     this.perfil._following.splice(this.perfil._following.indexOf(user._id),1);
     user._followers.splice(user._followers.indexOf(this.perfil._id),1);
     this.usuarios[user._id.valueOf()] = user;
+    this.usuarios[this.perfil._id.valueOf()] = this.perfil;
 
     //Guardamos datos
     this.storage.set('userLogged',this.perfil);
     this.storage.set('usuarios',this.usuarios);
   }
+
+  
+  verTipo():string{
+    return document.getElementById('recetas-button').classList.contains("active") ? 'recetas' : 'usuarios';
+  }
+
 }

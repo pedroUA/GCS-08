@@ -49,7 +49,7 @@ export class MirecetaPage implements OnInit {
   }
 
   verReceta(receta:Receta){
-    this.route.navigate(['ver-receta/'+receta._id.valueOf()]);
+    this.route.navigate(['ver-receta/'+receta._id]);
   }
 
   ngOnInit() {

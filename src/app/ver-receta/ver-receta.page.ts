@@ -1,7 +1,7 @@
+import { Usuario } from '../usuario';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Receta } from '../receta';
-import { Usuario } from '../usuario';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 
@@ -15,13 +15,14 @@ export class VerRecetaPage implements OnInit {
   usuarios:Usuario[];
 
   constructor(private storage:Storage, private route:Router, private aRoute:ActivatedRoute) {
-    this.storage.get('recetas').then((recs:Receta[])=> this.receta=recs[Number(this.aRoute.snapshot.paramMap.get('id')).valueOf()])
-   }
+    this.storage.get('recetas').then( (recs:Receta[]) => this.receta=recs[this.aRoute.snapshot.paramMap.get('id')] )
+    this.storage.get('usuarios').then( (users:Usuario[]) => this.usuarios=users )
+  }
 
   ngOnInit() {
   }
 
-  verUsuario(user:Usuario){
-    this.storage.set('usuario',user).then(()=>this.route.navigate(['profile']))
+  verUsuario(){
+    this.route.navigate(['profile/'+this.receta._author]);
   }
 }

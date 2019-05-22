@@ -53,9 +53,27 @@ export class HomePage {
       document.getElementById('usuarios-button').classList.toggle("active")
 
       this.updateSearchbarText();
+      this.recetas = this.shuffle(this.recetas);
     }
  }
+ shuffle(array:Receta[]) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+}
   constructor(private storage: Storage,public navCtrl: NavController, private router: Router) {
     //Rellenaremos los datos de forma asincrona
     

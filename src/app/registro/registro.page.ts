@@ -85,6 +85,7 @@ export class RegistroPage implements OnInit {
             _username: this.username,
             _password: this.password,
             _email: this.email,
+            _imageURL: '../../assets/images/users/undefined.jpg',
             _followers: [],
             _following: [],
           }

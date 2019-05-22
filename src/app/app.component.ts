@@ -73,6 +73,9 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
+  ionViewWillEnter(){
+    this.storage.get('userLogged').then(u=>this.usuario=u);
+  }
 
   nav(page:string){    
     this.storage.get('userLogged').then( (user:Usuario) => this.route.navigate([page+user._id]));
@@ -140,7 +143,7 @@ export class AppComponent {
       _username: 'admin',
       _password: 'admin',
       _email:'admin@admin.com',
-      _address: 'Calle que te importa 123',
+      _address: 'Calle Ejemplar Nº:123',
       _imageURL: 'https://thispersondoesnotexist.com/image',
       _followers: [],
       _following: []
